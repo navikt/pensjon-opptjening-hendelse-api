@@ -1,0 +1,42 @@
+kind: Application
+apiVersion: nais.io/v1alpha1
+metadata:
+  name: pgi-endring
+  namespace: pensjonopptjening
+  labels:
+    team: pensjonopptjening
+spec:
+  azure:
+    application:
+      enabled: true
+  webproxy: true
+
+  kafka:
+    pool: nav-dev
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: test
+    - name: ONPREM_KAFKA_BOOTSTRAP_SERVERS_URL
+      value: SSL://b27apvl00045.preprod.local:8443,SSL://b27apvl00046.preprod.local:8443,SSL://b27apvl00047.preprod.local:8443
+  image: {{ image }}
+  ingresses:
+    - https://pgi-endring.dev.intern.nav.no
+  liveness:
+    path: /internal/isalive
+    port: 8080
+    initialDelay: 20
+  readiness:
+    path: /internal/isready
+    port: 8080
+    initialDelay: 20
+  replicas:
+    min: 1
+    max: 1
+    cpuThresholdPercentage: 50
+  resources:
+    limits:
+      cpu: "4"
+      memory: 8096Mi
+    requests:
+      cpu: 400m
+      memory: 4024Mi
