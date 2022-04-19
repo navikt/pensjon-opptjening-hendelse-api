@@ -39,7 +39,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # DEPLOYER TIL NAIS Q2 team namespace
+      # DEPLOYER TIL NAIS dev-gcp team namespace
       - name: 'Deploy pgi-endring to dev-gcp'
         uses: nais/deploy/actions/deploy@v1
         env:
