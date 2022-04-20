@@ -1,0 +1,20 @@
+apiVersion: kafka.nais.io/v1
+kind: Topic
+metadata:
+  name: pgi-endring-topic
+  namespace: pensjonopptjening
+  labels:
+    team: pensjonopptjening
+spec:
+  pool: nav-dev
+  config:
+    cleanupPolicy: delete # Kafka will discard old segments when retention time or size limit has been reached
+    minimumInSyncReplicas: 1
+    partitions: 4
+    replication: 3
+    retentionBytes: -1 # Messages will never get deleted because of disk space
+    retentionHours: -1  # -1 means unlimited
+  acl:
+    - team: pensjonopptjening
+      application: pgi-endring # Rekjøring av hendelser hvis korresponderende inntekt feiler mot POPP
+      access: write
