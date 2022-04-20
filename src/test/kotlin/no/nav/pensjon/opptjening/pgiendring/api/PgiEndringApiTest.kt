@@ -1,6 +1,7 @@
 package no.nav.pensjon.opptjening.pgiendring.api
 
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -23,21 +24,48 @@ internal class PgiEndringApiTest {
         mockMvc.perform(
             post("/pgi/publiser/endring")
                 .contentType(APPLICATION_JSON)
-                .content(PGI_ENDRING)
+                .content(createPgiEndring())
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
     }
 
+    @Test
+    fun `Returns 400 if aar is null`() {
+        mockMvc.perform(
+            post("/pgi/publiser/endring")
+                .contentType(APPLICATION_JSON)
+                .content(createPgiEndring(aar = null))
+        )
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+    }
 
-    companion object {
-        const val PGI_ENDRING = """
+    @Test
+    fun `Returns 400 if fnr is null`() {
+        mockMvc.perform(
+            post("/pgi/publiser/endring")
+                .contentType(APPLICATION_JSON)
+                .content(createPgiEndring(fnr = null))
+        )
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+    }
+
+    @Test
+    fun `Returns 400 if opptjeningType is null`() {
+        mockMvc.perform(
+            post("/pgi/publiser/endring")
+                .contentType(APPLICATION_JSON)
+                .content(createPgiEndring(opptjeningType = null))
+        )
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+    }
+
+    private fun createPgiEndring(aar: Int? = 2021, fnr: String? = """"12345678901"""", opptjeningType: String? = """"SUM_PI""""): String {
+        return """
             {
-                "aar":2021,
-                "fnr":"12345678901",
-                "opptjeningType":"SUM_PI"
+                "aar":$aar,
+                "fnr":$fnr,
+                "opptjeningType":$opptjeningType
             }
         """
     }
-
-
 }

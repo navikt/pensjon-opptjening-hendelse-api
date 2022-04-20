@@ -21,8 +21,3 @@ class PgiEndringApi {
     }
 }
 
-data class PgiEndring(
-    val aar: Int,
-    val fnr: String,
-    val opptjeningType: String,
-)
