@@ -9,8 +9,8 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@SpringBootTest()
-@ActiveProfiles(profiles = ["dev-gcp"])
+@SpringBootTest
+@ActiveProfiles(profiles = ["local"])
 @AutoConfigureMockMvc
 class PgiEndringApplicationTests {
 
@@ -22,7 +22,6 @@ class PgiEndringApplicationTests {
     }
 
     @Test
-    @Throws(Exception::class)
     fun shouldReturnDefaultMessage() {
         mockMvc.perform(get("/pgi/ping")).andExpect(status().isOk)
     }

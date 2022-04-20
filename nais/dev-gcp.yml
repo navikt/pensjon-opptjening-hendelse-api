@@ -9,15 +9,12 @@ spec:
   azure:
     application:
       enabled: true
-  webproxy: true
 
   kafka:
     pool: nav-dev
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: dev-gcp
-    - name: ONPREM_KAFKA_BOOTSTRAP_SERVERS_URL
-      value: SSL://b27apvl00045.preprod.local:8443,SSL://b27apvl00046.preprod.local:8443,SSL://b27apvl00047.preprod.local:8443
   image: {{ image }}
   ingresses:
     - https://pgi-endring.dev.intern.nav.no
