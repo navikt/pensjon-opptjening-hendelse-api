@@ -7,19 +7,26 @@ import org.apache.kafka.common.serialization.StringSerializer
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
 import org.springframework.kafka.annotation.EnableKafka
 import org.springframework.kafka.core.DefaultKafkaProducerFactory
+import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 
 @EnableKafka
+@Profile("dev-gcp")
 @Configuration
 class KafkaConfig(
-    @param:Value("\${kafka.keystore.path}") private val keystorePath: String,
-    @param:Value("\${kafka.credstore.password}") private val credstorePassword: String,
-    @param:Value("\${kafka.truststore.path}") private val truststorePath: String,
-    @param:Value("\${kafka.brokers}") private val aivenBootstrapServers: String,
-    @param:Value("\${kafka.security.protocol}") private val securityProtocol: String,
+    @Value("\${kafka.keystore.path}") private val keystorePath: String,
+    @Value("\${kafka.credstore.password}") private val credstorePassword: String,
+    @Value("\${kafka.truststore.path}") private val truststorePath: String,
+    @Value("\${kafka.brokers}") private val aivenBootstrapServers: String,
+    @Value("\${kafka.security.protocol}") private val securityProtocol: String,
+    @Value("\${KAFKA_PGI_ENDRING_TOPIC}") private val pgiEndringTopic: String,
 ) {
+
+    @Bean
+    fun aivenKafkaTemplate(): KafkaTemplate<String, String> = KafkaTemplate(aivenProducerFactory()).also { it.defaultTopic = pgiEndringTopic }
 
     @Bean
     fun aivenProducerFactory(): ProducerFactory<String, String> = DefaultKafkaProducerFactory(aivenProducerConfig() + aivenSecurityConfig())
