@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.pgiendring
+package no.nav.pensjon.opptjening.pgiendring.testsetup
 
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.producer.ProducerConfig

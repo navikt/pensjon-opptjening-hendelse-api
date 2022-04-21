@@ -23,9 +23,17 @@ dependencies {
 
     implementation("net.logstash.logback:logstash-logback-encoder:7.1.1")
 
+    // OIDC
+    implementation("no.nav.security:token-validation-spring:2.0.14")
+    implementation("no.nav.security:token-client-spring:2.0.14")
+    implementation("org.hibernate:hibernate-validator:7.0.4.Final")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
+
+    // Only used for starting up locally
+    implementation("no.nav.security:token-validation-spring-test:2.0.14")
 }
 
 tasks.withType<KotlinCompile> {

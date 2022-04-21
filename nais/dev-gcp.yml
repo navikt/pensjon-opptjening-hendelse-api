@@ -9,7 +9,15 @@ spec:
   azure:
     application:
       enabled: true
-
+      claims:
+        extra:
+            - NAVident
+#    accessPolicy:
+#      inbound:
+#        rules:
+#          - application: pgi-endring-proxy
+#            namespace: pensjonopptjening
+#            cluster: dev-fss
   kafka:
     pool: nav-dev
   env:

@@ -1,7 +1,8 @@
 package no.nav.pensjon.opptjening.pgiendring.api
 
+
+import no.nav.pensjon.opptjening.pgiendring.TestApplication
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.params.ParameterizedTest
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -11,7 +12,7 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
-@SpringBootTest
+@SpringBootTest(classes = [TestApplication::class])
 @ActiveProfiles(profiles = ["local"])
 @AutoConfigureMockMvc
 internal class PgiEndringApiTest {

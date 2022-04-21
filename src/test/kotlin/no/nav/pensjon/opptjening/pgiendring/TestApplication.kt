@@ -6,10 +6,10 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Profile
 
 @SpringBootApplication
-@EnableJwtTokenValidation
-@Profile("dev-gcp", "prod-gcp")
-class PgiEndringApplication
+@EnableJwtTokenValidation(ignore = ["no.nav.pensjon"])
+@Profile("local")
+class TestApplication
 
 fun main(args: Array<String>) {
-    runApplication<PgiEndringApplication>(*args)
+    runApplication<TestApplication>(*args)
 }
