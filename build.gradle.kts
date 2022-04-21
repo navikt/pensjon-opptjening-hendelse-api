@@ -16,8 +16,8 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.springframework.metrics:spring-metrics:0.5.1.RELEASE")
-    implementation("io.prometheus:simpleclient_common:0.15.0")
+    implementation("org.springframework.boot:spring-boot-starter-actuator:2.6.6")
+    implementation("io.micrometer:micrometer-registry-prometheus:1.8.5")
 
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
