@@ -32,12 +32,6 @@ internal class PgiEndringApiTest {
     @Autowired
     private lateinit var mockMvc: MockMvc
 
-    @Value("\${KAFKA_PGI_ENDRING_TOPIC}")
-    private lateinit var pgiEndringTopic: String
-
-    @Value("\${" + EmbeddedKafkaBroker.SPRING_EMBEDDED_KAFKA_BROKERS + "}")
-    private lateinit var brokers: String
-
     @Autowired
     private lateinit var consumer: TestKafkaConsumer
 
