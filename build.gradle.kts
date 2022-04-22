@@ -1,6 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springVersion = "2.6.6"
+val springVersion = "2.6.5"
 val navTokenSupportVersion = "2.0.14"
 val kotlinVersion = "1.6.21"
 
@@ -22,7 +22,7 @@ dependencies {
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-web:$springVersion")
     implementation("org.springframework.boot:spring-boot-starter-actuator:$springVersion")
-    implementation("org.springframework.kafka:spring-kafka:$springVersion")
+    implementation("org.springframework.kafka:spring-kafka:2.8.4")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect:$kotlinVersion")
@@ -40,8 +40,8 @@ dependencies {
 
     //Test
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springVersion")
-    testImplementation("org.springframework.kafka:spring-kafka-test:$springVersion")
-    testImplementation("org.testcontainers:kafka:1.17.1")
+    testImplementation("org.springframework.kafka:spring-kafka-test:2.8.4")
+    //testImplementation("org.testcontainers:kafka:1.17.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
     testImplementation("no.nav.security:token-validation-spring-test:$navTokenSupportVersion")
 }

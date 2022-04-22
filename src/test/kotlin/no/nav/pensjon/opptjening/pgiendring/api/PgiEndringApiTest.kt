@@ -4,13 +4,16 @@ package no.nav.pensjon.opptjening.pgiendring.api
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import no.nav.pensjon.opptjening.pgiendring.TestApplication
-import no.nav.pensjon.opptjening.pgiendring.testsetup.TestKafkaConsumer
+import no.nav.pensjon.opptjening.pgiendring.TestKafkaConsumer
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.kafka.test.EmbeddedKafkaBroker
 import org.springframework.kafka.test.context.EmbeddedKafka
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
@@ -24,14 +27,21 @@ import java.util.concurrent.TimeUnit
 @ActiveProfiles(profiles = ["local"])
 @AutoConfigureMockMvc
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, brokerProperties = ["listeners=PLAINTEXT://localhost:9092", "port=9092"], topics = ["pgi-endring-topic"])
+@EmbeddedKafka(partitions = 1, topics = ["pgi-endring-topic"])
 internal class PgiEndringApiTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
 
+    @Value("\${KAFKA_PGI_ENDRING_TOPIC}")
+    private lateinit var pgiEndringTopic: String
+
+    @Value("\${" + EmbeddedKafkaBroker.SPRING_EMBEDDED_KAFKA_BROKERS + "}")
+    private lateinit var brokers: String
+
     @Autowired
     private lateinit var consumer: TestKafkaConsumer
+
 
     @Test
     fun `Add pgi-endring returns 200 ok`() {

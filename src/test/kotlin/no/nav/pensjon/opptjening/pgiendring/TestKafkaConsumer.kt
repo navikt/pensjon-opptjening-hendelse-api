@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.pgiendring.testsetup
+package no.nav.pensjon.opptjening.pgiendring
 
 import org.apache.kafka.clients.consumer.ConsumerRecord
 import org.springframework.kafka.annotation.KafkaListener
@@ -11,7 +11,8 @@ class TestKafkaConsumer {
     val latch = CountDownLatch(1)
     private val consumedRecords: MutableList<ConsumerRecord<String, String>> = mutableListOf()
 
-    @KafkaListener(topics = ["\${KAFKA_PGI_ENDRING_TOPIC}"])
+
+    @KafkaListener(topics = ["\${KAFKA_PGI_ENDRING_TOPIC}"], groupId = "pensjonopptjening", containerFactory = "testConsumer")
     fun receive(consumerRecord: ConsumerRecord<String, String>) {
         println(consumerRecord)
         consumedRecords.add(consumerRecord)
