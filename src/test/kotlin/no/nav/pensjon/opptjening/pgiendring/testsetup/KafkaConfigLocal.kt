@@ -25,17 +25,23 @@ class KafkaConfigLocal(
     fun aivenKafkaTemplate(): KafkaTemplate<String, String> = KafkaTemplate(localProducerFactory()).also { it.defaultTopic = pgiEndringTopic }
 
     @Bean
-    fun localProducerFactory(): ProducerFactory<String, String> = DefaultKafkaProducerFactory(aivenProducerConfig() + localSecurityConfig())
+    fun localProducerFactory(): ProducerFactory<String, String> = DefaultKafkaProducerFactory(aivenProducerConfig() )
 
     private fun aivenProducerConfig() = mapOf(
         ProducerConfig.CLIENT_ID_CONFIG to "pgi-endring",
         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
-        ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to localBootstrapServers,
+        ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to localBootstrapServers
     )
 
     private fun localSecurityConfig() = mapOf(
         CommonClientConfigs.SECURITY_PROTOCOL_CONFIG to "SASL_SSL",
-        SaslConfigs.SASL_MECHANISM to "PLAIN"
+        SaslConfigs.SASL_MECHANISM to "PLAIN",
+        SaslConfigs.SASL_JAAS_CONFIG to "org.apache.kafka.common.security.plain.PlainLoginModule required username='${USERNAME}' password='${PASSWORD}';"
     )
+
+    companion object {
+        const val USERNAME: String = "user"
+        const val PASSWORD: String = "password"
+    }
 }

@@ -33,6 +33,7 @@ dependencies {
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
+    testImplementation("org.testcontainers:kafka:1.17.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
 
     // Only used for starting up locally

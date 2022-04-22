@@ -1,6 +1,12 @@
 kafka.brokers: "http://localhost:9092"
 AZURE_APP_WELL_KNOWN_URL: "http://localhost:8080"
 AZURE_APP_CLIENT_ID: "ape"
+spring:
+  kafka:
+    consumer:
+      auto-offset-reset: earliest
+      group-id: pensjonopptjening
+      enable-auto-commit: true
 #no.nav.security.jwt.issuer.issuer1.discoveryurl: http://localhost:${mock-oauth2-server.port}/issuer1/.well-known/openid-configuration
 #no.nav.security.jwt.issuer.issuer1.acceptedaudience: someaudience
 #no.nav.security.jwt.issuer.issuer1.cookiename: localhost-idtoken
