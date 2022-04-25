@@ -6,7 +6,6 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Profile
 
 @SpringBootApplication
-@EnableJwtTokenValidation(ignore = ["no.nav.pensjon"])
 @Profile("local")
 class TestApplication
 
