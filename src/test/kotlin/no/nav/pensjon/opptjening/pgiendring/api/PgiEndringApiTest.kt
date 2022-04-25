@@ -73,6 +73,7 @@ internal class PgiEndringApiTest {
         val key = record.key()
         assert(key.contains("$inntektAar"))
         assert(key.contains(foedselsnummer))
+
     }
 
 
