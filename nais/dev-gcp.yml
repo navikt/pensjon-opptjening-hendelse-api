@@ -12,12 +12,12 @@ spec:
       claims:
         extra:
             - NAVident
-    accessPolicy:
-      inbound:
-        rules:
-          - application: pgi-endring-proxy
-            namespace: pensjonopptjening
-            cluster: dev-fss
+  accessPolicy:
+    inbound:
+      rules:
+        - application: pgi-endring-proxy
+          namespace: pensjonopptjening
+          cluster: dev-fss
   kafka:
     pool: nav-dev
   env:
