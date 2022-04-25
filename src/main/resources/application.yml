@@ -1,8 +1,9 @@
 KAFKA_PGI_ENDRING_TOPIC: "pgi-endring-topic"
 
-issuer.aad:
-  discoveryurl: ${AZURE_APP_WELL_KNOWN_URL}
-  accepted_audience: ${AZURE_APP_CLIENT_ID}
+no.nav.security.jwt:
+  issuer.aad:
+    discoveryurl: ${AZURE_APP_WELL_KNOWN_URL}
+    accepted_audience: ${AZURE_APP_CLIENT_ID}
 
 management:
   endpoints:
