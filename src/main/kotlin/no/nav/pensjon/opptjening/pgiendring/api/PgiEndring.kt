@@ -16,9 +16,10 @@ data class PgiEndring(
 data class PgiEndringKey(
     val aar: Int,
     val fnr: String,
+    val opptjeningType: String,
 )
 
-internal fun createKey(pgiEndring: PgiEndring) = PgiEndringKey(pgiEndring.aar, pgiEndring.fnr)
+internal fun createKey(pgiEndring: PgiEndring) = PgiEndringKey(pgiEndring.aar, pgiEndring.fnr, pgiEndring.opptjeningType)
 
 @ResponseStatus(code = HttpStatus.BAD_REQUEST, reason = "aar is null")
 class InntektAarNullException : Exception()

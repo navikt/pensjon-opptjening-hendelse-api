@@ -8,11 +8,9 @@ import no.nav.pensjon.opptjening.pgiendring.TestKafkaConsumer
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.kafka.test.EmbeddedKafkaBroker
 import org.springframework.kafka.test.context.EmbeddedKafka
 import org.springframework.test.annotation.DirtiesContext
 import org.springframework.test.context.ActiveProfiles
@@ -49,9 +47,10 @@ internal class PgiEndringApiTest {
     @Test
     fun `Add pgi-endring adds record to topic`() {
         val inntektAar = 2010
-        val foedselsnummer = "3333333333333"
+        val foedselsnummer = """"3333333333333""""
+        val opptjeningType = """"SUM_TEST""""
 
-        val pgiEndring = createPgiEndring(aar = inntektAar, fnr = foedselsnummer)
+        val pgiEndring = createPgiEndring(aar = inntektAar, fnr = foedselsnummer, opptjeningType = opptjeningType)
 
         mockMvc.perform(
             post("/pgi/publiser/endring")
@@ -72,7 +71,8 @@ internal class PgiEndringApiTest {
 
         val key = record.key()
         assert(key.contains("$inntektAar"))
-        assert(key.contains(foedselsnummer))
+        assert(key.contains("$foedselsnummer"))
+        assert(key.contains("$opptjeningType"))
 
     }
 
