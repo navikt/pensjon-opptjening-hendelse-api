@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController
 
 private val logger = LoggerFactory.getLogger(PgiEndringApi::class.java)
 
-@RestController()
+@RestController
 @RequestMapping("/pgi/")
 @Protected
 class PgiEndringApi(registry: MeterRegistry, private val kafkaTemplate: KafkaTemplate<String, String>) {
