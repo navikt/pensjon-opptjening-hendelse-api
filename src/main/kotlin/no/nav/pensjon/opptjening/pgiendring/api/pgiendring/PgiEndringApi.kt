@@ -27,7 +27,7 @@ class PgiEndringApi(registry: MeterRegistry, private val kafkaTemplate: KafkaTem
         counterTotalCalls.increment()
 
         return try {
-            kafkaTemplate.sendDefault(createKey(pgiEndring).toJson(), pgiEndring.toJson()).get()
+            kafkaTemplate.sendDefault(pgiEndring.key().toJson(), pgiEndring.toJson()).get()
             counterSuccessfulCalls.increment()
             ResponseEntity.ok().build()
         } catch (e: Exception) {
