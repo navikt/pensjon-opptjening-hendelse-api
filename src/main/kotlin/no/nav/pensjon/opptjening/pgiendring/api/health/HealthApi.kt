@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.pgiendring.api
+package no.nav.pensjon.opptjening.pgiendring.api.health
 
 import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.http.ResponseEntity
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @Unprotected
-class HealthCheckApi {
+class HealthApi {
 
     @GetMapping("/ping")
     fun ping(): ResponseEntity<Unit> = ResponseEntity.ok().build()

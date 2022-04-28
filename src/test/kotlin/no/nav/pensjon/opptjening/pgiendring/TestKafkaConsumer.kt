@@ -11,10 +11,9 @@ class TestKafkaConsumer {
     val latch = CountDownLatch(1)
     private val consumedRecords: MutableList<ConsumerRecord<String, String>> = mutableListOf()
 
-
     @KafkaListener(topics = ["\${KAFKA_PGI_ENDRING_TOPIC}"], groupId = "pensjonopptjening", containerFactory = "testConsumer")
     fun receive(consumerRecord: ConsumerRecord<String, String>) {
-        println(consumerRecord)
+        println("${TestKafkaConsumer::class.simpleName} received record: $consumerRecord")
         consumedRecords.add(consumerRecord)
         latch.countDown()
     }

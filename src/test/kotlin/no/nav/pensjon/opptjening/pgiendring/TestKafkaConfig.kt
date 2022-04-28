@@ -14,10 +14,10 @@ import org.springframework.kafka.test.EmbeddedKafkaBroker
 
 @Configuration
 class TestKafkaConfig {
+
     @Bean
-    fun kafkaTemplate(producerFactory: ProducerFactory<String, String>, @Value("\${KAFKA_PGI_ENDRING_TOPIC}") pgiEndringTopic: String): KafkaTemplate<String, String> {
-        return KafkaTemplate(producerFactory).also { it.defaultTopic = pgiEndringTopic }
-    }
+    fun kafkaTemplate(producerFactory: ProducerFactory<String, String>, @Value("\${KAFKA_PGI_ENDRING_TOPIC}") pgiEndringTopic: String): KafkaTemplate<String, String> =
+        KafkaTemplate(producerFactory).also { it.defaultTopic = pgiEndringTopic }
 
     @Bean
     fun producerFactory(@Value("\${" + EmbeddedKafkaBroker.SPRING_EMBEDDED_KAFKA_BROKERS + "}") brokers: String): ProducerFactory<String, String> =
@@ -28,10 +28,9 @@ class TestKafkaConfig {
             ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to brokers
         ))
 
-
     @Bean
-    fun consumerFactory(@Value("\${" + EmbeddedKafkaBroker.SPRING_EMBEDDED_KAFKA_BROKERS + "}") brokers: String): ConsumerFactory<String, String> {
-        return DefaultKafkaConsumerFactory(mapOf(
+    fun consumerFactory(@Value("\${" + EmbeddedKafkaBroker.SPRING_EMBEDDED_KAFKA_BROKERS + "}") brokers: String): ConsumerFactory<String, String> =
+        DefaultKafkaConsumerFactory(mapOf(
             ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG to brokers,
             ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
             ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG to StringDeserializer::class.java,
@@ -39,13 +38,11 @@ class TestKafkaConfig {
             ConsumerConfig.AUTO_OFFSET_RESET_CONFIG to "earliest",
             ConsumerConfig.GROUP_ID_CONFIG to "pensjonopptjening",
         ))
-    }
 
     @Bean("testConsumer")
-    fun consumerContainerFactory(consumerFactory: ConsumerFactory<String, String>): ConcurrentKafkaListenerContainerFactory<String, String>? =
+    fun consumerContainerFactory(consumerFactory: ConsumerFactory<String, String>): ConcurrentKafkaListenerContainerFactory<String, String> =
         ConcurrentKafkaListenerContainerFactory<String, String>().apply {
             this.consumerFactory = consumerFactory
             this.containerProperties.ackMode = ContainerProperties.AckMode.MANUAL
         }
-
 }

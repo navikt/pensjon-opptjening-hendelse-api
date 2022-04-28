@@ -3,7 +3,7 @@ package no.nav.pensjon.opptjening.pgiendring
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.nimbusds.jose.JOSEObjectType
-import no.nav.pensjon.opptjening.pgiendring.api.PgiEndring
+import no.nav.pensjon.opptjening.pgiendring.api.pgiendring.PgiEndring
 import no.nav.security.mock.oauth2.MockOAuth2Server
 import no.nav.security.mock.oauth2.token.DefaultOAuth2TokenCallback
 import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
@@ -89,6 +89,17 @@ internal class PgiEndringApplicationTest {
             post("/pgi/publiser/endring")
                 .contentType(APPLICATION_JSON)
                 .content(createPgiEndring(aar = null))
+                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
+        )
+            .andExpect(MockMvcResultMatchers.status().isBadRequest)
+    }
+
+    @Test
+    fun `Returns 400 if aar is 0`() {
+        mockMvc.perform(
+            post("/pgi/publiser/endring")
+                .contentType(APPLICATION_JSON)
+                .content(createPgiEndring(aar = 0))
                 .header(HttpHeaders.AUTHORIZATION, token("testaud"))
         )
             .andExpect(MockMvcResultMatchers.status().isBadRequest)

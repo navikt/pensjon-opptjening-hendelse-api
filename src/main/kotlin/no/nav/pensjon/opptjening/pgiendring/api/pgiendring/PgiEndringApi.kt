@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.pgiendring.api
+package no.nav.pensjon.opptjening.pgiendring.api.pgiendring
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import io.micrometer.core.instrument.MeterRegistry
@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
-
-private val logger = LoggerFactory.getLogger(PgiEndringApi::class.java)
 
 @RestController
 @RequestMapping("/pgi/")
@@ -35,11 +33,14 @@ class PgiEndringApi(registry: MeterRegistry, private val kafkaTemplate: KafkaTem
         } catch (e: Exception) {
             logger.error("Something went wrong when adding pgiEndring to topic ", e)
             counterFailedCalls.increment()
-            ResponseEntity.internalServerError().body("""{ "error": "Something went wrong when adding pgiEndring to topic"}""");
+            ResponseEntity.internalServerError().body("""{ "error": "Something went wrong when adding pgiEndring to topic"}""")
         }
     }
 
     private fun Any.toJson() = objectMapper.writeValueAsString(this)
 
+    companion object {
+        private val logger = LoggerFactory.getLogger(PgiEndringApi::class.java)
+    }
 }
 
