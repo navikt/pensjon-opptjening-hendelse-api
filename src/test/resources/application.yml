@@ -1,5 +1,6 @@
 AZURE_APP_WELL_KNOWN_URL: "http://localhost:8080"
 AZURE_APP_CLIENT_ID: "ape"
+KAFKA_PGI_ENDRING_TOPIC: "pensjonopptjening.pgi-endring-topic"
 
 no.nav.security.jwt:
   issuer.aad:

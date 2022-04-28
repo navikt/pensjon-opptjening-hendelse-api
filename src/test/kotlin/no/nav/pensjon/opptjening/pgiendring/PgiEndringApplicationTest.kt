@@ -16,17 +16,15 @@ import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.kafka.test.context.EmbeddedKafka
 import org.springframework.test.annotation.DirtiesContext
-import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.util.concurrent.TimeUnit
 
 @SpringBootTest(classes = [PgiEndringApplication::class])
-@ActiveProfiles(profiles = ["local"])
 @AutoConfigureMockMvc
 @DirtiesContext
-@EmbeddedKafka(partitions = 1, topics = ["pgi-endring-topic"])
+@EmbeddedKafka(partitions = 1, topics = ["pensjonopptjening.pgi-endring-topic"])
 @EnableMockOAuth2Server
 internal class PgiEndringApplicationTest {
 
