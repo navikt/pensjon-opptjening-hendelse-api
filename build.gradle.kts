@@ -1,11 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springVersion = "2.6.5"
+val springVersion = "2.6.7"
 val navTokenSupportVersion = "2.0.14"
 val kotlinVersion = "1.6.21"
+val mockWebserverVersion = "4.9.2"
 
 plugins {
-    id("org.springframework.boot") version "2.6.6"
+    id("org.springframework.boot") version "2.6.7"
     id("io.spring.dependency-management") version "1.0.11.RELEASE"
     kotlin("jvm") version "1.6.10"
     kotlin("plugin.spring") version "1.6.10"
@@ -41,9 +42,10 @@ dependencies {
     //Test
     testImplementation("org.springframework.boot:spring-boot-starter-test:$springVersion")
     testImplementation("org.springframework.kafka:spring-kafka-test:2.8.4")
-    //testImplementation("org.testcontainers:kafka:1.17.1")
     testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
     testImplementation("no.nav.security:token-validation-spring-test:$navTokenSupportVersion")
+    testImplementation("com.squareup.okhttp3:mockwebserver:$mockWebserverVersion")
+    testImplementation("com.squareup.okhttp3:okhttp:$mockWebserverVersion")
 }
 
 tasks.withType<KotlinCompile> {

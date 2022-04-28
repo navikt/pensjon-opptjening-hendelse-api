@@ -14,7 +14,7 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
 
 @EnableKafka
-@Profile("dev-gcp")
+@Profile("dev-gcp", "prod-gcp")
 @Configuration
 class KafkaConfig(
     @Value("\${kafka.keystore.path}") private val keystorePath: String,

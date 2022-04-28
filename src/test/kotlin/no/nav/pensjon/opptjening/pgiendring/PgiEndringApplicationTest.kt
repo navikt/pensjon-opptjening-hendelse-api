@@ -1,15 +1,18 @@
-package no.nav.pensjon.opptjening.pgiendring.api
-
+package no.nav.pensjon.opptjening.pgiendring
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.KotlinModule
-import no.nav.pensjon.opptjening.pgiendring.TestApplication
-import no.nav.pensjon.opptjening.pgiendring.TestKafkaConsumer
+import com.nimbusds.jose.JOSEObjectType
+import no.nav.pensjon.opptjening.pgiendring.api.PgiEndring
+import no.nav.security.mock.oauth2.MockOAuth2Server
+import no.nav.security.mock.oauth2.token.DefaultOAuth2TokenCallback
+import no.nav.security.token.support.spring.test.EnableMockOAuth2Server
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.kafka.test.context.EmbeddedKafka
 import org.springframework.test.annotation.DirtiesContext
@@ -19,19 +22,22 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.util.concurrent.TimeUnit
 
-
-@SpringBootTest(classes = [TestApplication::class])
+@SpringBootTest(classes = [PgiEndringApplication::class])
 @ActiveProfiles(profiles = ["local"])
 @AutoConfigureMockMvc
 @DirtiesContext
 @EmbeddedKafka(partitions = 1, topics = ["pgi-endring-topic"])
-internal class PgiEndringApiTest {
+@EnableMockOAuth2Server
+internal class PgiEndringApplicationTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
 
     @Autowired
     private lateinit var consumer: TestKafkaConsumer
+
+    @Autowired
+    private lateinit var server: MockOAuth2Server
 
 
     @Test
@@ -40,6 +46,7 @@ internal class PgiEndringApiTest {
             post("/pgi/publiser/endring")
                 .contentType(APPLICATION_JSON)
                 .content(createPgiEndring())
+                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
     }
@@ -56,6 +63,7 @@ internal class PgiEndringApiTest {
             post("/pgi/publiser/endring")
                 .contentType(APPLICATION_JSON)
                 .content(pgiEndring)
+                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
 
@@ -71,8 +79,8 @@ internal class PgiEndringApiTest {
 
         val key = record.key()
         assert(key.contains("$inntektAar"))
-        assert(key.contains("$foedselsnummer"))
-        assert(key.contains("$opptjeningType"))
+        assert(key.contains(foedselsnummer))
+        assert(key.contains(opptjeningType))
 
     }
 
@@ -83,6 +91,7 @@ internal class PgiEndringApiTest {
             post("/pgi/publiser/endring")
                 .contentType(APPLICATION_JSON)
                 .content(createPgiEndring(aar = null))
+                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
         )
             .andExpect(MockMvcResultMatchers.status().isBadRequest)
     }
@@ -93,6 +102,7 @@ internal class PgiEndringApiTest {
             post("/pgi/publiser/endring")
                 .contentType(APPLICATION_JSON)
                 .content(createPgiEndring(fnr = null))
+                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
         )
             .andExpect(MockMvcResultMatchers.status().isBadRequest)
     }
@@ -103,8 +113,20 @@ internal class PgiEndringApiTest {
             post("/pgi/publiser/endring")
                 .contentType(APPLICATION_JSON)
                 .content(createPgiEndring(opptjeningType = null))
+                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
         )
             .andExpect(MockMvcResultMatchers.status().isBadRequest)
+    }
+
+    @Test
+    fun `Returns 401 if audience does not match accepted_audience`() {
+        mockMvc.perform(
+            post("/pgi/publiser/endring")
+                .contentType(APPLICATION_JSON)
+                .content(createPgiEndring())
+                .header(HttpHeaders.AUTHORIZATION, token("faultyAudClaim"))
+        )
+            .andExpect(MockMvcResultMatchers.status().isUnauthorized)
     }
 
     private fun String.toPgiEndringObject(): PgiEndring = ObjectMapper().registerModule(KotlinModule.Builder().build()).readValue(this, PgiEndring::class.java)
@@ -118,5 +140,15 @@ internal class PgiEndringApiTest {
                 "opptjeningType":$opptjeningType
             }
         """
+    }
+
+    private fun token(audience: String): String {
+        return "Bearer ${
+            server.issueToken(
+                issuerId = "aad",
+                clientId = "theclientid",
+                tokenCallback = DefaultOAuth2TokenCallback("aad", "random", JOSEObjectType.JWT.type, listOf(audience), emptyMap(), 3600)
+            ).serialize()
+        }"
     }
 }
