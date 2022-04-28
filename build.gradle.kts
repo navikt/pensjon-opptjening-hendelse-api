@@ -6,7 +6,7 @@ val kotlinVersion = "1.6.21"
 val jacksonVersion = "2.13.2"
 val prometheusVersion = "1.8.5"
 val logbackEncoderVersion = "7.1.1"
-val navTokenSupportVersion = "2.0.14"
+val navTokenSupportVersion = "2.0.15"
 val hibernateValidatorVersion = "7.0.4.Final"
 val mockWebserverVersion = "4.9.3"
 
