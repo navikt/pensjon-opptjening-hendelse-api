@@ -1,0 +1,47 @@
+kind: Application
+apiVersion: nais.io/v1alpha1
+metadata:
+  name: pgi-endring
+  namespace: pensjonopptjening
+  labels:
+    team: pensjonopptjening
+spec:
+  azure:
+    application:
+      enabled: true
+  accessPolicy:
+    inbound:
+      rules:
+        - application: pgi-endring-proxy
+          namespace: pensjonopptjening
+          cluster: prod-fss
+  kafka:
+    pool: nav-prod
+  env:
+    - name: SPRING_PROFILES_ACTIVE
+      value: prod-gcp
+  image: {{ image }}
+  ingresses:
+    - https://pgi-endring.intern.nav.no
+  liveness:
+    path: /internal/isalive
+    port: 8080
+    initialDelay: 20
+  readiness:
+    path: /internal/isready
+    port: 8080
+    initialDelay: 20
+  prometheus:
+    enabled: true
+    path: /actuator/prometheus
+  replicas:
+    min: 3
+    max: 3
+    cpuThresholdPercentage: 50
+  resources:
+    limits:
+      cpu: "4"
+      memory: 8096Mi
+    requests:
+      cpu: 400m
+      memory: 4024Mi
