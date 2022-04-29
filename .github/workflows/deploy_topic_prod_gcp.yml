@@ -20,4 +20,4 @@ jobs:
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: prod-gcp
-          RESOURCE: nais/topics/pgi-endring-topic-dev-gcp.yaml
+          RESOURCE: nais/topics/pgi-endring-topic-prod-gcp.yaml

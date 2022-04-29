@@ -5,8 +5,8 @@ metadata:
   namespace: pensjonopptjening
   labels:
     team: pensjonopptjening
-#  annotations:
-#    kafka.nais.io/removeDataWhenResourceIsDeleted: "true"
+  annotations:
+    kafka.nais.io/removeDataWhenResourceIsDeleted: "true"
 spec:
   pool: nav-prod
   config:
