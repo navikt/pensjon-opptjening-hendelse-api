@@ -18,5 +18,5 @@ spec:
     retentionHours: -1  # -1 means unlimited
   acl:
     - team: pensjonopptjening
-      application: pgi-endring # Rekjøring av hendelser hvis korresponderende inntekt feiler mot POPP
+      application: pgi-endring-q2 # Rekjøring av hendelser hvis korresponderende inntekt feiler mot POPP
       access: write
