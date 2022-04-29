@@ -12,7 +12,7 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: pgi-endring-proxy
+        - application: pgi-endring-proxy-q2
           namespace: pensjonopptjening
           cluster: dev-fss
   kafka:
@@ -20,9 +20,11 @@ spec:
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: dev-gcp
+    - name: KAFKA_PGI_ENDRING_TOPIC
+      value: pensjonopptjening.pgi-endring-topic-q2
   image: {{ image }}
   ingresses:
-    - https://pgi-endring.dev.intern.nav.no
+    - https://pgi-endring-q2.dev.intern.nav.no
   liveness:
     path: /internal/isalive
     port: 8080

@@ -1,11 +1,11 @@
-name: Deploy topics dev-gcp
+name: Deploy topics dev-gcp q2
 
 on:
   push:
     branches:
       - master
     paths:
-      - 'nais/topics/pgi-endring-topic-dev-gcp.yaml'
+      - 'nais/topics/pgi-endring-topic-dev-gcp-q2.yaml'
 jobs:
   deploy_topics:
     name: 'Deploy topics'
@@ -15,9 +15,9 @@ jobs:
       - name: 'Pull repo'
         uses: actions/checkout@v2
 
-      - name: 'Deploy topic to dev-gcp'
+      - name: 'Deploy topic to dev-gcp q2'
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
-          RESOURCE: nais/topics/pgi-endring-topic-dev-gcp.yaml
+          RESOURCE: nais/topics/pgi-endring-topic-dev-gcp-q2.yaml

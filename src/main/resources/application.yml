@@ -1,5 +1,3 @@
-KAFKA_PGI_ENDRING_TOPIC: "pensjonopptjening.pgi-endring-topic"
-
 no.nav.security.jwt:
   issuer.aad:
     discoveryurl: ${AZURE_APP_WELL_KNOWN_URL}

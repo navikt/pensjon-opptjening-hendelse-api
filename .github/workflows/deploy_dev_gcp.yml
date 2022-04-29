@@ -1,11 +1,11 @@
-name: Bygg og deploy til dev-gcp
+name: Bygg og deploy til dev-gcp q2
 
 on:
   push:
     branches:
       - master
     paths-ignore:
-      - 'nais/topics/pgi-endring-topic-dev-gcp.yaml'
+      - 'nais/topics/pgi-endring-topic-dev-gcp-q2.yaml'
       - 'nais/topics/pgi-endring-topic-prod-gcp.yaml'
       - 'README.md'
 jobs:
@@ -43,11 +43,11 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # DEPLOYER TIL NAIS dev-gcp team namespace
-      - name: 'Deploy pgi-endring to dev-gcp'
+      # DEPLOYER TIL NAIS dev-gcp q2 team namespace
+      - name: 'Deploy pgi-endring to dev-gcp q2'
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          RESOURCE: nais/dev-gcp.yml
+          RESOURCE: nais/dev-gcp-q2.yml
           CLUSTER: dev-gcp
           IMAGE: ${{ env.IMAGE }}

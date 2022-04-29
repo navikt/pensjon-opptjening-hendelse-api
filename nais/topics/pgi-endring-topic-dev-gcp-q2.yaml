@@ -1,7 +1,7 @@
 apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
-  name: pgi-endring-topic
+  name: pgi-endring-topic-q2
   namespace: pensjonopptjening
   labels:
     team: pensjonopptjening

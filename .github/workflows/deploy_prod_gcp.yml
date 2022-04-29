@@ -5,7 +5,7 @@ on:
     branches:
       - master
     paths-ignore:
-      - 'nais/topics/pgi-endring-topic-dev-gcp.yaml'
+      - 'nais/topics/pgi-endring-topic-dev-gcp-q2.yaml'
       - 'nais/topics/pgi-endring-topic-prod-gcp.yaml'
       - 'README.md'
 jobs:
