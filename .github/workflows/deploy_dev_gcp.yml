@@ -25,7 +25,7 @@ jobs:
           echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
       # SETTER IMAGE VARIABEL
       - name: 'Setter Image'
-        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/pgi-endring:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
+        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/pgi-endring-q2:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
 
       # JAVA 17
       - name: 'Java 17'
