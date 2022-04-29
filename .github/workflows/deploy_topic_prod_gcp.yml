@@ -1,4 +1,4 @@
-name: Deploy topics
+name: Deploy topics prod-gcp
 
 on:
   push:
