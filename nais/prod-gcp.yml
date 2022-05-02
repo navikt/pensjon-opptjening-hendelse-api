@@ -20,6 +20,8 @@ spec:
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: prod-gcp
+    - name: KAFKA_PGI_ENDRING_TOPIC
+      value: pensjonopptjening.pgi-endring-topic
   image: {{ image }}
   ingresses:
     - https://pgi-endring.intern.nav.no
