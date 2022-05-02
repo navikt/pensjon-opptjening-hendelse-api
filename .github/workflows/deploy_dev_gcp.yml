@@ -1,4 +1,4 @@
-name: Bygg og deploy til dev-gcp q2
+name: Bygg og deploy til dev-gcp q0 q1 q2 qdiv t0
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
           echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
       # SETTER IMAGE VARIABEL
       - name: 'Setter Image'
-        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/pgi-endring-q2:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
+        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/pgi-endring-q:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
 
       # JAVA 17
       - name: 'Java 17'
@@ -42,12 +42,43 @@ jobs:
           docker push ${{ env.IMAGE }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # DEPLOYER TIL NAIS dev-gcp q2 team namespace
+      # DEPLOYER q2 dev-gcp
       - name: 'Deploy pgi-endring to dev-gcp q2'
         uses: nais/deploy/actions/deploy@v1
         env:
           APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: nais/dev-gcp-q2.yml
+          CLUSTER: dev-gcp
+          IMAGE: ${{ env.IMAGE }}
+      # DEPLOYER q0 dev-gcp
+      - name: 'Deploy pgi-endring to dev-gcp q0'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          RESOURCE: nais/dev-gcp-q0.yml
+          CLUSTER: dev-gcp
+          IMAGE: ${{ env.IMAGE }}
+      # DEPLOYER q1 dev-gcp
+      - name: 'Deploy pgi-endring to dev-gcp q1'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          RESOURCE: nais/dev-gcp-q1.yml
+          CLUSTER: dev-gcp
+          IMAGE: ${{ env.IMAGE }}
+      # DEPLOYER qdiv dev-gcp
+      - name: 'Deploy pgi-endring to dev-gcp qdiv'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          RESOURCE: nais/dev-gcp-qdiv.yml
+          CLUSTER: dev-gcp
+          IMAGE: ${{ env.IMAGE }}
+      # DEPLOYER t0 dev-gcp
+      - name: 'Deploy pgi-endring to dev-gcp t0'
+        uses: nais/deploy/actions/deploy@v1
+        env:
+          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
+          RESOURCE: nais/dev-gcp-t0.yml
           CLUSTER: dev-gcp
           IMAGE: ${{ env.IMAGE }}
