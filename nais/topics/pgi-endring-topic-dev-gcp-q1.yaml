@@ -20,3 +20,6 @@ spec:
     - team: pensjonopptjening
       application: pgi-endring-q1 # Rekjøring av hendelser hvis korresponderende inntekt feiler mot POPP
       access: write
+    - team: aap
+      application: inntekt
+      access: read
