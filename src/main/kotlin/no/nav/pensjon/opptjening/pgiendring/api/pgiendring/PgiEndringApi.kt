@@ -29,6 +29,7 @@ class PgiEndringApi(registry: MeterRegistry, private val kafkaTemplate: KafkaTem
         return try {
             kafkaTemplate.sendDefault(pgiEndring.key().toJson(), pgiEndring.toJson()).get()
             counterSuccessfulCalls.increment()
+            logger.info("OK, Melding lagt på topic")
             ResponseEntity.ok().build()
         } catch (e: Exception) {
             logger.error("Something went wrong when adding pgiEndring to topic ", e)
