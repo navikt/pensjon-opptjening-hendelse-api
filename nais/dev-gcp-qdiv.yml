@@ -28,7 +28,7 @@ spec:
   liveness:
     path: /internal/isalive
     port: 8080
-    initialDelay: 20
+    initialDelay: 30
   readiness:
     path: /internal/isready
     port: 8080

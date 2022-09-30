@@ -32,7 +32,7 @@ spec:
   readiness:
     path: /internal/isready
     port: 8080
-    initialDelay: 20
+    initialDelay: 30
   prometheus:
     enabled: true
     path: /actuator/prometheus
