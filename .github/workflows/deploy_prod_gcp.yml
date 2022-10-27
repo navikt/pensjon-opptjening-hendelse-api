@@ -15,7 +15,6 @@ on:
       - 'nais/dev-gcp-q1.yml'
       - 'nais/dev-gcp-q2.yml'
       - 'nais/dev-gcp-qdiv.yml'
-      - 'nais/dev-gcp-t0.yml'
       - 'README.md'
 jobs:
   tag_build_and_deploy:

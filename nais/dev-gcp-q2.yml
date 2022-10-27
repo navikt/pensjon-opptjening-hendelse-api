@@ -28,11 +28,11 @@ spec:
   liveness:
     path: /internal/isalive
     port: 8080
-    initialDelay: 20
+    initialDelay: 40
   readiness:
     path: /internal/isready
     port: 8080
-    initialDelay: 30
+    initialDelay: 40
   prometheus:
     enabled: true
     path: /actuator/prometheus

@@ -78,11 +78,3 @@ jobs:
           RESOURCE: nais/dev-gcp-qdiv.yml
           CLUSTER: dev-gcp
           IMAGE: ${{ env.IMAGE }}
-      # DEPLOYER t0 dev-gcp
-      - name: 'Deploy pgi-endring to dev-gcp t0'
-        uses: nais/deploy/actions/deploy@v1
-        env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
-          RESOURCE: nais/dev-gcp-t0.yml
-          CLUSTER: dev-gcp
-          IMAGE: ${{ env.IMAGE }}

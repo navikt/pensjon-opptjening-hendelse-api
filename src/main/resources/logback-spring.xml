@@ -40,11 +40,10 @@
         <logger name="io" level="ERROR"/>
         <logger name="org" level="ERROR"/>
         <logger name="com" level="ERROR"/>
-        <logger name="no.nav" level="DEBUG"/>
+        <logger name="no.nav" level="INFO"/>
         <logger name="no.nav.security" level="ERROR"/>
-        <logger name="no.nav.pgi-endring" level="DEBUG"/>
-        <logger name="no.nav.security.token.support.core.validation" level="DEBUG"/>
-        <logger name="org.springframework.web.client.RestTemplate" level="DEBUG"/>
+        <logger name="no.nav.pgi-endring" level="INFO"/>
+        <logger name="no.nav.security.token.support.core.validation" level="ERROR"/>
 
     </springProfile>
 
