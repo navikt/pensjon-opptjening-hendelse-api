@@ -37,9 +37,9 @@ spec:
     enabled: true
     path: /actuator/prometheus
   replicas:
-    min: 1
-    max: 1
-    cpuThresholdPercentage: 50
+    min: 2
+    max: 4
+    cpuThresholdPercentage: 75
   resources:
     limits:
       cpu: "4"
