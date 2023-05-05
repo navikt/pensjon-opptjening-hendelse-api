@@ -24,7 +24,7 @@ spec:
       value: pensjonopptjening.pgi-endring-topic-q1
   image: {{ image }}
   ingresses:
-    - https://pgi-endring-q1.dev.intern.nav.no
+    - https://pgi-endring-q1.intern.dev.nav.no
   liveness:
     path: /internal/isalive
     port: 8080
