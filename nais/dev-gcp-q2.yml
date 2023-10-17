@@ -15,6 +15,9 @@ spec:
         - application: pgi-endring-proxy-q2
           namespace: pensjonopptjening
           cluster: dev-fss
+        - application: pensjon-popp-q2
+          namespace: pensjonopptjening
+          cluster: dev-fss
   kafka:
     pool: nav-dev
   env:
