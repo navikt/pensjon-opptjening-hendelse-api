@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springVersion = "2.6.7"
-val springKafkaVersion = "2.8.5"
+val springKafkaVersion = "3.0.11"
 val kotlinVersion = "1.6.21"
 val jacksonVersion = "2.13.2"
 val prometheusVersion = "1.8.5"
