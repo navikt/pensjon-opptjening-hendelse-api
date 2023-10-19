@@ -15,6 +15,9 @@ spec:
         - application: pgi-endring-proxy
           namespace: pensjonopptjening
           cluster: prod-fss
+        - application: pensjon-popp
+          namespace: pensjonopptjening
+          cluster: prod-fss
   kafka:
     pool: nav-prod
   env:
