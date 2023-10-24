@@ -18,6 +18,9 @@ spec:
         - application: pensjon-popp
           namespace: pensjonopptjening
           cluster: prod-fss
+        - application: poppbatch
+          namespace: pensjon-batch
+          cluster: prod-fss
   kafka:
     pool: nav-prod
   env:

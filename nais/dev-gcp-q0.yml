@@ -18,6 +18,9 @@ spec:
         - application: pensjon-popp-q0
           namespace: pensjonopptjening
           cluster: dev-fss
+        - application: poppbatch-q
+          namespace: pensjon-batch
+          cluster: dev-fss
   kafka:
     pool: nav-dev
   env:
