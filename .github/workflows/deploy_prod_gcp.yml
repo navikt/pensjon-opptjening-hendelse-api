@@ -9,7 +9,6 @@ on:
       - 'nais/topics/pgi-endring-topic-dev-gcp-q1.yaml'
       - 'nais/topics/pgi-endring-topic-dev-gcp-q2.yaml'
       - 'nais/topics/pgi-endring-topic-dev-gcp-qdiv.yaml'
-      - 'nais/topics/pgi-endring-topic-dev-gcp-t0.yaml'
       - 'nais/topics/pgi-endring-topic-prod-gcp.yaml'
       - 'nais/dev-gcp-q0.yml'
       - 'nais/dev-gcp-q1.yml'

@@ -1,4 +1,4 @@
-name: Bygg og deploy til dev-gcp q0 q1 q2 qdiv t0
+name: Bygg og deploy til dev-gcp q0 q1 q2 qdiv
 
 on:
   push:
@@ -9,7 +9,6 @@ on:
       - 'nais/topics/pgi-endring-topic-dev-gcp-q1.yaml'
       - 'nais/topics/pgi-endring-topic-dev-gcp-q2.yaml'
       - 'nais/topics/pgi-endring-topic-dev-gcp-qdiv.yaml'
-      - 'nais/topics/pgi-endring-topic-dev-gcp-t0.yaml'
       - 'nais/topics/pgi-endring-topic-prod-gcp.yaml'
       - 'README.md'
 jobs:
