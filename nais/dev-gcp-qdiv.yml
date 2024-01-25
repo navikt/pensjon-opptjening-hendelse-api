@@ -12,9 +12,6 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: pgi-endring-proxy-qdiv
-          namespace: pensjonopptjening
-          cluster: dev-fss
         - application: pensjon-popp-qdiv
           namespace: pensjonopptjening
           cluster: dev-fss
@@ -43,9 +40,10 @@ spec:
     enabled: true
     path: /actuator/prometheus
   replicas:
-    min: 2
-    max: 4
-    cpuThresholdPercentage: 75
+    min: 1
+    scalingStrategy:
+      cpu:
+        thresholdPercentage: 75
   resources:
     limits:
       cpu: "4"
