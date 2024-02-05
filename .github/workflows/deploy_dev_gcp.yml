@@ -18,6 +18,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
     steps:
       # PULLER REPO
       - name: 'Pull repo'
@@ -50,33 +51,29 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # DEPLOYER q2 dev-gcp
       - name: 'Deploy pgi-endring to dev-gcp q2'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: nais/dev-gcp-q2.yml
           CLUSTER: dev-gcp
           IMAGE: ${{ env.IMAGE }}
       # DEPLOYER q0 dev-gcp
       - name: 'Deploy pgi-endring to dev-gcp q0'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: nais/dev-gcp-q0.yml
           CLUSTER: dev-gcp
           IMAGE: ${{ env.IMAGE }}
       # DEPLOYER q1 dev-gcp
       - name: 'Deploy pgi-endring to dev-gcp q1'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: nais/dev-gcp-q1.yml
           CLUSTER: dev-gcp
           IMAGE: ${{ env.IMAGE }}
       # DEPLOYER qdiv dev-gcp
       - name: 'Deploy pgi-endring to dev-gcp qdiv'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: nais/dev-gcp-qdiv.yml
           CLUSTER: dev-gcp
           IMAGE: ${{ env.IMAGE }}
