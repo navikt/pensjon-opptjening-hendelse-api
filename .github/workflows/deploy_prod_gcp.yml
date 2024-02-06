@@ -22,6 +22,7 @@ jobs:
     permissions:
       contents: read
       packages: write
+      id-token: write
     steps:
       # PULLER REPO
       - name: 'Pull repo'
@@ -55,9 +56,8 @@ jobs:
 
       # DEPLOYER TIL NAIS prod-gcp team namespace
       - name: 'Deploy pgi-endring to prod-gcp'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           RESOURCE: nais/prod-gcp.yml
           CLUSTER: prod-gcp
           IMAGE: ${{ env.IMAGE }}

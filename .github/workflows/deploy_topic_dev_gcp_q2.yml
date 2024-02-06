@@ -8,6 +8,9 @@ on:
       - 'nais/topics/pgi-endring-topic-dev-gcp-q2.yaml'
 jobs:
   deploy_topics:
+    permissions:
+      contents: "read"
+      id-token: "write"  
     name: 'Deploy topics'
     runs-on: ubuntu-latest
     steps:
@@ -16,8 +19,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: 'Deploy topic to dev-gcp q2'
-        uses: nais/deploy/actions/deploy@v1
+        uses: nais/deploy/actions/deploy@v2
         env:
-          APIKEY: ${{ secrets.NAIS_DEPLOY_APIKEY }}
           CLUSTER: dev-gcp
           RESOURCE: nais/topics/pgi-endring-topic-dev-gcp-q2.yaml
