@@ -1,7 +1,7 @@
 apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
-  name: pgi-endring-topic-q0
+  name: beholdning-endret-topic-q2
   namespace: pensjonopptjening
   labels:
     team: pensjonopptjening
@@ -18,8 +18,5 @@ spec:
     retentionHours: -1  # -1 means unlimited
   acl:
     - team: pensjonopptjening
-      application: pgi-endring-q0
+      application: pensjon-opptjening-publisering-api-q2
       access: write
-    - team: aap
-      application: inntekt
-      access: read

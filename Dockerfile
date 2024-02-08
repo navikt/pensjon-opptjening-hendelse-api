@@ -1,3 +1,3 @@
-FROM navikt/java:17
+FROM navikt/java:21
 
-COPY build/libs/pgi-endring.jar /app/app.jar
+COPY build/libs/pensjon-opptjening-publisering-api.jar /app/app.jar

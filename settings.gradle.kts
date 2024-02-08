@@ -1,1 +1,1 @@
-rootProject.name = "pgi-endring"
+rootProject.name = "pensjon-opptjening-publisering-api"

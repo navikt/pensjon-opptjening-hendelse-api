@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.pgiendring
+package no.nav.pensjon.opptjening.publisering
 
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
 import org.springframework.boot.autoconfigure.SpringBootApplication
@@ -6,8 +6,8 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @EnableJwtTokenValidation
-class PgiEndringApplication
+class Application
 
 fun main(args: Array<String>) {
-    runApplication<PgiEndringApplication>(*args)
+    runApplication<Application>(*args)
 }

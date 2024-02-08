@@ -1,25 +1,22 @@
-name: Deploy topics dev-gcp q1
+name: Deploy topics dev-gcp
 
 on:
   push:
     branches:
       - master
-    paths:
-      - 'nais/topics/pgi-endring-topic-dev-gcp-q1.yaml'
 jobs:
   deploy_topics:
     permissions:
       contents: "read"
-      id-token: "write"  
+      id-token: "write"
     name: 'Deploy topics'
     runs-on: ubuntu-latest
     steps:
-      # PULLER REPO
       - name: 'Pull repo'
         uses: actions/checkout@v2
 
-      - name: 'Deploy topic to dev-gcp q1'
+      - name: 'Deploy'
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: nais/topics/pgi-endring-topic-dev-gcp-q1.yaml
+          RESOURCE: nais/topics/beholdning-endret-topic-q0.yaml,beholdning-endret-topic-q1.yaml,nais/topics/beholdning-endret-topic-q2.yaml,nais/topics/beholdning-endret-topic-q5.yaml

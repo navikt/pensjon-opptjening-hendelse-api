@@ -1,0 +1,31 @@
+name: Bygg feature-branch
+
+on:
+  push:
+    branches:
+      - '*'
+      - '*/*'
+      - '!main'
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: 'Pull repo'
+        uses: actions/checkout@v3
+
+      - name: 'Setup Java'
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: 21
+          cache: 'gradle'
+
+      - name: 'Build gradle'
+        run: |
+          ./gradlew build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

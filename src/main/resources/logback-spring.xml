@@ -10,14 +10,6 @@
             </encoder>
         </appender>
 
-        <logger name="io" level="ERROR"/>
-        <logger name="org" level="ERROR"/>
-        <logger name="com" level="ERROR"/>
-        <logger name="no.nav" level="INFO"/>
-        <logger name="no.nav.security" level="ERROR"/>
-        <logger name="no.nav.pgi-endring" level="INFO"/>
-        <logger name="no.nav.security.token.support.core.validation" level="ERROR"/>
-
         <root level="info">
             <appender-ref ref="stdout_json"/>
         </root>
@@ -36,15 +28,6 @@
         <root level="info">
             <appender-ref ref="stdout_json"/>
         </root>
-
-        <logger name="io" level="ERROR"/>
-        <logger name="org" level="ERROR"/>
-        <logger name="com" level="ERROR"/>
-        <logger name="no.nav" level="INFO"/>
-        <logger name="no.nav.security" level="ERROR"/>
-        <logger name="no.nav.pgi-endring" level="INFO"/>
-        <logger name="no.nav.security.token.support.core.validation" level="ERROR"/>
-
     </springProfile>
 
     <springProfile name="local">
@@ -56,14 +39,6 @@
         <root level="info">
             <appender-ref ref="STDOUT" />
         </root>
-
-        <logger name="io" level="ERROR"/>
-        <logger name="org" level="ERROR"/>
-        <logger name="com" level="ERROR"/>
-        <logger name="no.nav" level="DEBUG"/>
-        <logger name="no.nav.security" level="DEBUG"/>
-        <logger name="no.nav.pgi-endring" level="DEBUG"/>
-
     </springProfile>
 
 </configuration>

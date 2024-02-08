@@ -1,3 +1,3 @@
-# pgi-endring
+# pensjon-opptjening-publisering-api
 
-Endringer i PGI legges ut på pgi-endring kø
+Publiserer og tilgjengeliggjør meldinger fra opptjeningsdomenet for intern og ekstern bruk.

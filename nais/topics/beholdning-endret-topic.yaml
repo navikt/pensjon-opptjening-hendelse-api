@@ -1,14 +1,14 @@
 apiVersion: kafka.nais.io/v1
 kind: Topic
 metadata:
-  name: pgi-endring-topic-qdiv
+  name: beholdning-endret-topic
   namespace: pensjonopptjening
   labels:
     team: pensjonopptjening
   annotations:
     kafka.nais.io/removeDataWhenResourceIsDeleted: "true"
 spec:
-  pool: nav-dev
+  pool: nav-prod
   config:
     cleanupPolicy: delete # Kafka will discard old segments when retention time or size limit has been reached
     minimumInSyncReplicas: 1
@@ -18,8 +18,5 @@ spec:
     retentionHours: -1  # -1 means unlimited
   acl:
     - team: pensjonopptjening
-      application: pgi-endring-qdiv
+      application: pensjon-opptjening-publisering-api
       access: write
-    - team: aap
-      application: inntekt
-      access: read

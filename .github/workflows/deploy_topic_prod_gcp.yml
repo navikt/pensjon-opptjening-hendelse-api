@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - master
-    paths:
-      - 'nais/topics/pgi-endring-topic-prod-gcp.yaml'
 jobs:
   deploy_topics:
     permissions:
@@ -14,12 +12,11 @@ jobs:
     name: 'Deploy topics'
     runs-on: ubuntu-latest
     steps:
-      # PULLER REPO
       - name: 'Pull repo'
         uses: actions/checkout@v2
 
-      - name: 'Deploy topic to prod-gcp'
+      - name: 'Deploy'
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
-          RESOURCE: nais/topics/pgi-endring-topic-prod-gcp.yaml
+          RESOURCE: nais/topics/beholdning-endret-topic.yaml

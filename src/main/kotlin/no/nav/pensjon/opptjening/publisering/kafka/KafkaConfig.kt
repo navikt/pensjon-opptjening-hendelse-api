@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.pgiendring.hendelse.config
+package no.nav.pensjon.opptjening.publisering.kafka
 
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.producer.ProducerConfig
@@ -21,17 +21,17 @@ class KafkaConfig(
     @Value("\${kafka.credstore.password}") private val credstorePassword: String,
     @Value("\${kafka.truststore.path}") private val truststorePath: String,
     @Value("\${kafka.brokers}") private val aivenBootstrapServers: String,
-    @Value("\${KAFKA_PGI_ENDRING_TOPIC}") private val pgiEndringTopic: String,
 ) {
 
     @Bean
-    fun aivenKafkaTemplate(): KafkaTemplate<String, String> = KafkaTemplate(aivenProducerFactory()).also { it.defaultTopic = pgiEndringTopic }
+    fun aivenKafkaTemplate(): KafkaTemplate<String, String> = KafkaTemplate(aivenProducerFactory())
 
     @Bean
-    fun aivenProducerFactory(): ProducerFactory<String, String> = DefaultKafkaProducerFactory(aivenProducerConfig() + aivenSecurityConfig())
+    fun aivenProducerFactory(): ProducerFactory<String, String> =
+        DefaultKafkaProducerFactory(aivenProducerConfig() + aivenSecurityConfig())
 
     private fun aivenProducerConfig() = mapOf(
-        ProducerConfig.CLIENT_ID_CONFIG to "pgi-endring",
+        ProducerConfig.CLIENT_ID_CONFIG to "pensjon-opptjening-publisering-api",
         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to aivenBootstrapServers,

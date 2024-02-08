@@ -1,7 +1,7 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: pgi-endring-qdiv
+  name: pensjon-opptjening-publisering-api-q5
   namespace: pensjonopptjening
   labels:
     team: pensjonopptjening
@@ -12,7 +12,7 @@ spec:
   accessPolicy:
     inbound:
       rules:
-        - application: pensjon-popp-qdiv
+        - application: pensjon-popp-q5
           namespace: pensjonopptjening
           cluster: dev-fss
         - application: poppbatch-q
@@ -23,11 +23,11 @@ spec:
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: dev-gcp
-    - name: KAFKA_PGI_ENDRING_TOPIC
-      value: pensjonopptjening.pgi-endring-topic-qdiv
+    - name: BEHOLDNING_ENDRET_TOPIC
+      value: pensjonopptjening.beholdning-endret-topic-q5
   image: {{ image }}
   ingresses:
-    - https://pgi-endring-qdiv.intern.dev.nav.no
+    - https://pensjon-opptjening-publisering-api-q5.intern.dev.nav.no
   liveness:
     path: /internal/isalive
     port: 8080

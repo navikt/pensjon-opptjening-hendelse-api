@@ -1,7 +1,7 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: pgi-endring-q0
+  name: pensjon-opptjening-publisering-api-q0
   namespace: pensjonopptjening
   labels:
     team: pensjonopptjening
@@ -23,11 +23,11 @@ spec:
   env:
     - name: SPRING_PROFILES_ACTIVE
       value: dev-gcp
-    - name: KAFKA_PGI_ENDRING_TOPIC
-      value: pensjonopptjening.pgi-endring-topic-q0
+    - name: BEHOLDNING_ENDRET_TOPIC
+      value: pensjonopptjening.beholdning-endret-topic-q0
   image: {{ image }}
   ingresses:
-    - https://pgi-endring-q0.intern.dev.nav.no
+    - https://pensjon-opptjening-publisering-api-q0.intern.dev.nav.no
   liveness:
     path: /internal/isalive
     port: 8080
