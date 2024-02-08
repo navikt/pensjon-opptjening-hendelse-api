@@ -12,12 +12,12 @@ jobs:
     steps:
       # JAVA
       - name: 'Setup Java'
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 21
           cache: 'gradle
-      - uses: actions/checkout@v3 # ratchet:actions/checkout@v3
+      - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v0.8.6
         with:
