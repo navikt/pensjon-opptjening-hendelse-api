@@ -1,7 +1,7 @@
 kind: Application
 apiVersion: nais.io/v1alpha1
 metadata:
-  name: pensjon-opptjening-publisering-api
+  name: pensjon-opptjening-hendelse-api
   namespace: pensjonopptjening
   labels:
     team: pensjonopptjening
@@ -27,7 +27,7 @@ spec:
       value: pensjonopptjening.beholdning-endret-topic
   image: {{ image }}
   ingresses:
-    - https://pensjon-opptjening-publisering-api.intern.nav.no
+    - https://pensjon-opptjening-hendelse-api.intern.nav.no
   liveness:
     path: /internal/isalive
     port: 8080

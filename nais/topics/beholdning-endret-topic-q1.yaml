@@ -18,5 +18,5 @@ spec:
     retentionHours: -1  # -1 means unlimited
   acl:
     - team: pensjonopptjening
-      application: pensjon-opptjening-publisering-api-q1
+      application: pensjon-opptjening-hendelse-api-q1
       access: write

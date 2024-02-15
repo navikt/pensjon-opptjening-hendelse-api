@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 @RequestMapping("/api")
 @Protected
-class PubliseringApi(
-    private val service: PubliseringService,
+class HendelseApi(
+    private val service: HendelseService,
 ) {
 
     @PostMapping("/varsel")
@@ -27,7 +27,7 @@ class PubliseringApi(
     }
 
     companion object {
-        private val log = LoggerFactory.getLogger(PubliseringApi::class.java)
+        private val log = LoggerFactory.getLogger(HendelseApi::class.java)
     }
 
 }

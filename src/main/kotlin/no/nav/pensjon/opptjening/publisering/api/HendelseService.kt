@@ -5,7 +5,7 @@ import com.fasterxml.jackson.module.kotlin.KotlinModule
 import org.springframework.stereotype.Service
 
 @Service
-class PubliseringService(
+class HendelseService(
     private val kafkaPublisher: Publisher,
 ) {
     private val objectMapper = ObjectMapper().registerModules(KotlinModule.Builder().build())

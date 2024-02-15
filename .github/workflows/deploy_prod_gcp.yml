@@ -23,7 +23,7 @@ jobs:
           echo "COMMIT_HASH=$(git rev-parse HEAD)" >> $GITHUB_ENV
 
       - name: 'Export docker image tag'
-        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/pensjon-opptjening-publisering-api:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
+        run: echo "IMAGE=docker.pkg.github.com/${{ github.repository }}/pensjon-opptjening-hendelse-api:${{ env.DATE }}---${{ env.COMMIT_HASH }}" >> $GITHUB_ENV
 
       - name: 'Setup Java'
         uses: actions/setup-java@v4

@@ -18,7 +18,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableMockOAuth2Server
-internal class PubliseringApiTest {
+internal class HendelseApiTest {
 
     @Autowired
     private lateinit var mockMvc: MockMvc
@@ -27,7 +27,7 @@ internal class PubliseringApiTest {
     private lateinit var server: MockOAuth2Server
 
     @MockBean
-    private lateinit var service: PubliseringService
+    private lateinit var service: HendelseService
 
 
     @Test
