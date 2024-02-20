@@ -24,20 +24,22 @@ class KafkaConfig(
 ) {
 
     @Bean
-    fun aivenKafkaTemplate(): KafkaTemplate<String, String> = KafkaTemplate(aivenProducerFactory())
+    fun kafkaTemplate(): KafkaTemplate<String, String> = KafkaTemplate(producerFactory())
 
     @Bean
-    fun aivenProducerFactory(): ProducerFactory<String, String> =
-        DefaultKafkaProducerFactory(aivenProducerConfig() + aivenSecurityConfig())
+    fun producerFactory(): ProducerFactory<String, String> =
+        DefaultKafkaProducerFactory(producerConfig() + securityConfig())
 
-    private fun aivenProducerConfig() = mapOf(
+    private fun producerConfig() = mapOf(
         ProducerConfig.CLIENT_ID_CONFIG to "pensjon-opptjening-hendelse-api",
         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to aivenBootstrapServers,
+        ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG to "true",
+        ProducerConfig.TRANSACTIONAL_ID_CONFIG to "pensjon-opptjening-hendelse-api-tx"
     )
 
-    private fun aivenSecurityConfig() = mapOf(
+    private fun securityConfig() = mapOf(
         SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG to keystorePath,
         SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG to credstorePassword,
         SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG to credstorePassword,

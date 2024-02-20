@@ -10,9 +10,11 @@ class HendelseService(
 ) {
     private val objectMapper = ObjectMapper().registerModules(KotlinModule.Builder().build())
 
-    fun handle(message: String): Long {
-        val node = objectMapper.readTree(message)
-        val type = Type.valueOf(node.get("type").textValue())
-        return kafkaPublisher.publish(type, message)
+    fun handle(hendelser: List<String>): List<Long> {
+        return kafkaPublisher.publish(
+            hendelser.map { h ->
+                objectMapper.readTree(h).let { Type.valueOf(it.get("type").textValue()) } to h
+            }
+        )
     }
 }
