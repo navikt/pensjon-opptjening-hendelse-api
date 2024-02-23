@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.publisering.api
+package no.nav.pensjon.opptjening.hendelse.api
 
 interface Publisher {
     fun publish(hendelser: List<Pair<Type, String>>): List<Long>

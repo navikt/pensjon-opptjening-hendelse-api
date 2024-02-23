@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.publisering.kafka
+package no.nav.pensjon.opptjening.hendelse.kafka
 
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.producer.ProducerConfig

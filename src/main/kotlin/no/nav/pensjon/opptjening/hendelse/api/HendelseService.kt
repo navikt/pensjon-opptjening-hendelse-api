@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.publisering.api
+package no.nav.pensjon.opptjening.hendelse.api
 
 import com.fasterxml.jackson.databind.JsonNode
 import com.fasterxml.jackson.databind.ObjectMapper

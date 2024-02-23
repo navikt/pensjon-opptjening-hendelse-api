@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.publisering
+package no.nav.pensjon.opptjening.hendelse
 
 import no.nav.security.token.support.spring.api.EnableJwtTokenValidation
 import org.springframework.boot.autoconfigure.SpringBootApplication

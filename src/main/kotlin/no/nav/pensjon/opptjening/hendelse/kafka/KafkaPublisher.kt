@@ -1,8 +1,8 @@
-package no.nav.pensjon.opptjening.publisering.kafka
+package no.nav.pensjon.opptjening.hendelse.kafka
 
-import no.nav.pensjon.opptjening.publisering.api.PublishFailedException
-import no.nav.pensjon.opptjening.publisering.api.Publisher
-import no.nav.pensjon.opptjening.publisering.api.Type
+import no.nav.pensjon.opptjening.hendelse.api.PublishFailedException
+import no.nav.pensjon.opptjening.hendelse.api.Publisher
+import no.nav.pensjon.opptjening.hendelse.api.Type
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value

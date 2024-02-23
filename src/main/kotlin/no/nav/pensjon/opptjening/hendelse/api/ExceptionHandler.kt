@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.publisering.api
+package no.nav.pensjon.opptjening.hendelse.api
 
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory

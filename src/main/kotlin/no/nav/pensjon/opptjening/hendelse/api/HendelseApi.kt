@@ -1,7 +1,6 @@
-package no.nav.pensjon.opptjening.publisering.api
+package no.nav.pensjon.opptjening.hendelse.api
 
 import com.fasterxml.jackson.databind.JsonNode
-import com.fasterxml.jackson.databind.ObjectMapper
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping

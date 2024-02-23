@@ -1,7 +1,7 @@
-package no.nav.pensjon.opptjening.publisering.kafka
+package no.nav.pensjon.opptjening.hendelse.kafka
 
-import no.nav.pensjon.opptjening.publisering.api.PublishFailedException
-import no.nav.pensjon.opptjening.publisering.api.Type
+import no.nav.pensjon.opptjening.hendelse.api.PublishFailedException
+import no.nav.pensjon.opptjening.hendelse.api.Type
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.apache.kafka.common.TopicPartition

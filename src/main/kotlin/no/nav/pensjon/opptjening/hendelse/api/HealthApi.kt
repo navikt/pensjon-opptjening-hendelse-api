@@ -1,4 +1,4 @@
-package no.nav.pensjon.opptjening.publisering.api
+package no.nav.pensjon.opptjening.hendelse.api
 
 import no.nav.security.token.support.core.api.Unprotected
 import org.springframework.http.ResponseEntity
