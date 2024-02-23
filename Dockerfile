@@ -1,3 +1,3 @@
-FROM navikt/java:21
+FROM ghcr.io/navikt/baseimages/temurin:21
 
 COPY build/libs/pensjon-opptjening-hendelse-api.jar /app/app.jar
