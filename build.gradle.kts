@@ -1,7 +1,6 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springKafkaVersion = "3.1.1"
-val prometheusVersion = "1.8.5"
 val jacksonVersion = "2.16.1"
 val logbackEncoderVersion = "7.4"
 val mockitoKotlinVersion = "5.2.1"
@@ -41,7 +40,7 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
 
     // Log and metric
-    implementation("io.micrometer:micrometer-registry-prometheus:$prometheusVersion")
+    implementation("io.micrometer:micrometer-registry-prometheus")
     implementation("net.logstash.logback:logstash-logback-encoder:$logbackEncoderVersion")
 
     // OIDC
