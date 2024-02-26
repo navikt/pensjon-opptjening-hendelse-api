@@ -25,7 +25,7 @@ internal class KafkaPublisher(
                 hendelser
                     .map { (type, hendelse) ->
                         when (type) {
-                            Type.BEHOLDNING_ENDRET -> template.send(beholdningEndretTopic, hendelse)
+                            Type.ENDRET_BEHOLDNING -> template.send(beholdningEndretTopic, hendelse)
                         }
                     }
                     .map {

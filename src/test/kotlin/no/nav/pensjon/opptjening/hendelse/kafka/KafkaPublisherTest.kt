@@ -48,7 +48,7 @@ class KafkaPublisherTest {
             )
         }
 
-        val actual = publisher.publish(listOf(Type.BEHOLDNING_ENDRET to "baluba"))
+        val actual = publisher.publish(listOf(Type.ENDRET_BEHOLDNING to "baluba"))
         val expected = listOf(12345L)
 
         assertThat(actual).isEqualTo(expected)
@@ -61,7 +61,7 @@ class KafkaPublisherTest {
         }
 
         assertThrows<PublishFailedException> {
-            publisher.publish(listOf(Type.BEHOLDNING_ENDRET to "baluba"))
+            publisher.publish(listOf(Type.ENDRET_BEHOLDNING to "baluba"))
         }
     }
 }
