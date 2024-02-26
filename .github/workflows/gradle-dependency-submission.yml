@@ -16,7 +16,7 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: 21
-          cache: 'gradle
+          cache: gradle
       - uses: actions/checkout@v4 # ratchet:actions/checkout@v4
       - name: Run snapshot action
         uses: mikepenz/gradle-dependency-submission@v0.8.6
