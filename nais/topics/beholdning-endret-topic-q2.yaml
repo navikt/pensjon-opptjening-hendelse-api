@@ -20,3 +20,6 @@ spec:
     - team: pensjonopptjening
       application: pensjon-opptjening-hendelse-api-q2
       access: write
+    - team: pensjonopptjening
+      application: pensjon-opptjening-kafka-testing-support
+      access: read
