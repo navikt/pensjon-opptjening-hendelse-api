@@ -14,7 +14,7 @@ jobs:
       id-token: write
     steps:
       - name: 'Pull repo'
-        uses: actions/checkout@v1
+        uses: actions/checkout@v4
 
       - name: 'Extract variables for docker image tag'
         run: |
