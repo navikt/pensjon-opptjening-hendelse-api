@@ -14,6 +14,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.springframework.boot") version "3.2.1"
+    id("com.github.ben-manes.versions") version "0.51.0"
 }
 
 apply(plugin = "io.spring.dependency-management")
