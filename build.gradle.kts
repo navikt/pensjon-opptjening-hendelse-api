@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val springKafkaVersion = "3.1.1"
@@ -6,11 +7,10 @@ val logbackEncoderVersion = "7.4"
 val mockitoKotlinVersion = "5.2.1"
 val navTokenSupportVersion = "4.1.0"
 val hibernateValidatorVersion = "8.0.1.Final"
-val javaVersion = 21
 
 
 plugins {
-    val kotlinVersion = "1.9.22"
+    val kotlinVersion = "2.0.10"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.springframework.boot") version "3.2.1"
@@ -23,7 +23,7 @@ group = "no.nav.pensjon.opptjening"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(javaVersion))
+        languageVersion.set(JavaLanguageVersion.of(21))
     }
 }
 
@@ -63,9 +63,9 @@ tasks.test {
 }
 
 tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = javaVersion.toString()
+    compilerOptions {
+        freeCompilerArgs.add("-Xjsr305=strict")
+        jvmTarget.set(JvmTarget.JVM_21)
     }
 }
 
