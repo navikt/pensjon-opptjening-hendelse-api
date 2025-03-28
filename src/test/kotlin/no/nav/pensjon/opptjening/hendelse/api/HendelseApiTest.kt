@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.context.annotation.Import
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.web.servlet.MockMvc
@@ -21,6 +22,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableMockOAuth2Server
+@Import(TestKafkaConfig::class)
 internal class HendelseApiTest {
 
     @Autowired
@@ -31,7 +33,6 @@ internal class HendelseApiTest {
 
     @MockBean
     private lateinit var service: HendelseService
-
 
     @Test
     fun `svarer 200 ok hvis alt går bra`() {

@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springKafkaVersion = "3.1.1"
-val jacksonVersion = "2.16.1"
-val logbackEncoderVersion = "7.4"
-val mockitoKotlinVersion = "5.2.1"
+val springKafkaVersion = "3.3.4"
+val jacksonVersion = "2.18.3"
+val logbackEncoderVersion = "8.0"
+val mockitoKotlinVersion = "5.4.0"
 val navTokenSupportVersion = "4.1.0"
-val hibernateValidatorVersion = "8.0.1.Final"
+val hibernateValidatorVersion = "8.0.2.Final"
 
 
 plugins {

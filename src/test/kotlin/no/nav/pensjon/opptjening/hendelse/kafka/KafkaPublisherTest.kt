@@ -20,11 +20,15 @@ import java.util.concurrent.CompletableFuture
 class KafkaPublisherTest {
 
     private val kafkaTemplate: KafkaTemplate<String, String> = mock()
+    private val customProducerListener: CustomProducerListener = CustomProducerListener()
     private val beholdningEndretTopic = "bet"
+    private val opptjeningEndretTopic = "oet"
 
     private val publisher = KafkaPublisher(
         kafkaTemplate = kafkaTemplate,
-        beholdningEndretTopic = beholdningEndretTopic
+        customProducerListener = customProducerListener,
+        beholdningEndretTopic = beholdningEndretTopic,
+        opptjeningEndretTopic = opptjeningEndretTopic
     )
 
     @BeforeEach

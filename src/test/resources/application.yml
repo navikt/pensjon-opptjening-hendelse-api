@@ -1,6 +1,7 @@
 AZURE_APP_WELL_KNOWN_URL: "http://localhost:8080"
 AZURE_APP_CLIENT_ID: "ape"
 BEHOLDNING_ENDRET_TOPIC: "pensjonopptjening.beholdning-endret-topic"
+OPPTJENING_ENDRET_TOPIC: "pensjonopptjening.opptjening-endret-topic"
 
 no.nav.security.jwt:
   issuer.aad:

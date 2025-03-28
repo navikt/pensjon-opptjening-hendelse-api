@@ -10,13 +10,19 @@ import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
 @Component
-internal class KafkaPublisher(
+class KafkaPublisher(
     private val kafkaTemplate: KafkaTemplate<String, String>,
-    @Value("\${BEHOLDNING_ENDRET_TOPIC}") private val beholdningEndretTopic: String
+    customProducerListener: CustomProducerListener,
+    @Value("\${BEHOLDNING_ENDRET_TOPIC}") private val beholdningEndretTopic: String,
+    @Value("\${OPPTJENING_ENDRET_TOPIC}") private val opptjeningEndretTopic: String
 ) : Publisher {
 
     companion object {
         private val log: Logger = LoggerFactory.getLogger(this::class.java)
+    }
+
+    init {
+        kafkaTemplate.setProducerListener(customProducerListener)
     }
 
     override fun publish(hendelser: List<Pair<Type, String>>): List<Long> {
@@ -26,6 +32,7 @@ internal class KafkaPublisher(
                     .map { (type, hendelse) ->
                         when (type) {
                             Type.ENDRET_BEHOLDNING -> template.send(beholdningEndretTopic, hendelse)
+                            Type.ENDRET_OPPTJENING -> template.send(opptjeningEndretTopic, hendelse)
                         }
                     }
                     .map {
