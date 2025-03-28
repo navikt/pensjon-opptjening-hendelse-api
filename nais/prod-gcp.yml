@@ -25,6 +25,8 @@ spec:
       value: prod-gcp
     - name: BEHOLDNING_ENDRET_TOPIC
       value: pensjonopptjening.beholdning-endret-topic
+    - name: OPPTJENING_ENDRET_TOPIC
+      value: pensjonopptjening.opptjening-endret-topic
   image: {{ image }}
   ingresses:
     - https://pensjon-opptjening-hendelse-api.intern.nav.no
