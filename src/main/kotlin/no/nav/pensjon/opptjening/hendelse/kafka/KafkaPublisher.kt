@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component
 @Component
 class KafkaPublisher(
     private val kafkaTemplate: KafkaTemplate<String, String>,
-    private val customProducerListener: CustomProducerListener,
+    customProducerListener: CustomProducerListener,
     @Value("\${BEHOLDNING_ENDRET_TOPIC}") private val beholdningEndretTopic: String,
     @Value("\${OPPTJENING_ENDRET_TOPIC}") private val opptjeningEndretTopic: String
 ) : Publisher {
