@@ -20,7 +20,7 @@ class CustomProducerListener : ProducerListener<String, String> {
     }
 
     override fun onSuccess(producerRecord: ProducerRecord<String, String>?, recordMetadata: RecordMetadata?) {
-        log.debug(
+        log.info(
             "Kafka message published successfully - " +
                     "Topic: ${producerRecord?.topic() ?: "unknown"}, " +
                     "Partition: ${producerRecord?.partition() ?: "unknown"}, " +
