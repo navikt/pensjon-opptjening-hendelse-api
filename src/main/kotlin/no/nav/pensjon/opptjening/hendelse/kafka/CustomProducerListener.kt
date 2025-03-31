@@ -4,7 +4,6 @@ import no.nav.pensjon.opptjening.hendelse.utils.PoppLogger
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.springframework.kafka.support.ProducerListener
-import org.springframework.lang.Nullable
 import org.springframework.stereotype.Component
 import java.time.LocalDateTime
 
@@ -20,19 +19,19 @@ class CustomProducerListener : ProducerListener<String, String> {
     }
 
     override fun onSuccess(producerRecord: ProducerRecord<String, String>?, recordMetadata: RecordMetadata?) {
-        log.info(
+        log.debug(
             "Kafka message published successfully - " +
                     "Topic: ${producerRecord?.topic() ?: "unknown"}, " +
                     "Partition: ${producerRecord?.partition() ?: "unknown"}, " +
                     "Offset: ${recordMetadata?.offset() ?: "unknown"}, " +
                     "Timestamp: ${LocalDateTime.now()}, " +
-                    "Key: ${producerRecord?.key() ?: "unknown"}"
+                    "Key: ${producerRecord?.key() ?: "unknown/null"}"
         )
     }
 
     override fun onError(
         producerRecord: ProducerRecord<String, String>?,
-        @Nullable recordMetadata: RecordMetadata?,
+        recordMetadata: RecordMetadata?,
         exception: Exception?
     ) {
         log.error(
@@ -41,7 +40,7 @@ class CustomProducerListener : ProducerListener<String, String> {
                     "Partition: ${producerRecord?.partition() ?: "unknown"}, " +
                     "Offset: ${recordMetadata?.offset() ?: "unknown"}, " +
                     "Timestamp: ${LocalDateTime.now()}, " +
-                    "Key: ${producerRecord?.key() ?: "unknown"}" +
+                    "Key: ${producerRecord?.key() ?: "unknown/null"}" +
                     "Payload: ${producerRecord?.value() ?: "unknown"}" +
                     "Exception: ${exception?.message ?: "unknown"}"
         )
