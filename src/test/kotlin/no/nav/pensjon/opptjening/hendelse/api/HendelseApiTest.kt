@@ -10,7 +10,6 @@ import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.boot.test.mock.mockito.MockBean
 import org.springframework.context.annotation.Import
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType.APPLICATION_JSON
@@ -22,7 +21,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 @SpringBootTest
 @AutoConfigureMockMvc
 @EnableMockOAuth2Server
-@Import(TestKafkaConfig::class)
+@Import(TestConfig::class)
 internal class HendelseApiTest {
 
     @Autowired
@@ -31,11 +30,12 @@ internal class HendelseApiTest {
     @Autowired
     private lateinit var server: MockOAuth2Server
 
-    @MockBean
+    @Autowired
     private lateinit var service: HendelseService
 
     @Test
     fun `svarer 200 ok hvis alt går bra`() {
+        whenever(service.handle(any())).thenAnswer { PublishEventResult.Ok(listOf(1L)) }
         mockMvc.perform(
             post("/api/hendelser")
                 .contentType(APPLICATION_JSON)
@@ -58,8 +58,8 @@ internal class HendelseApiTest {
 
     @Test
     fun `svarer 500 hvis publisering feiler`() {
-        whenever(service.handle(any())).thenThrow(PublishFailedException("the message", RuntimeException("something")))
-
+        val errorMessage = "500 Feil"
+        whenever(service.handle(any())).thenAnswer { PublishEventResult.EventError(errorMessage) }
         mockMvc.perform(
             post("/api/hendelser")
                 .contentType(APPLICATION_JSON)
@@ -67,11 +67,12 @@ internal class HendelseApiTest {
                 .header(HttpHeaders.AUTHORIZATION, token("testaud"))
         )
             .andExpect(status().isInternalServerError)
-            .andExpect(content().json("""{"message":"the message"}"""))
+            .andExpect(content().json("""{"message": "$errorMessage"}"""))
     }
 
     @Test
     fun `parser en liste med hendelser til en liste med strenger`() {
+        whenever(service.handle(any())).thenAnswer { PublishEventResult.Ok(listOf(1L)) }
         val hendelserJson = """[{"fnr":"12341234123",
                 | "arsak":"INNTEKT",
                 | "hendelsesTid":"2021-01-01T15:16:17+01:00[Europe/Oslo]",

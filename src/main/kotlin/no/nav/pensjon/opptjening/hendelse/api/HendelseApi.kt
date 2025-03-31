@@ -16,8 +16,11 @@ class HendelseApi(
     private val service: HendelseService,
 ) {
     @PostMapping("/hendelser", consumes = ["application/json"])
-    fun hendelser(@RequestBody hendelser: List<JsonNode>): ResponseEntity<List<Long>> {
-        return ResponseEntity.ok().body(service.handle(hendelser))
+    fun hendelser(@RequestBody hendelser: List<JsonNode>): ResponseEntity<PublishEventResult> {
+        return when (val result = service.handle(hendelser)) {
+            is PublishEventResult.Ok -> ResponseEntity.ok().body(result)
+            is PublishEventResult.EventError -> ResponseEntity.internalServerError().body(result)
+
+        }
     }
 }
-

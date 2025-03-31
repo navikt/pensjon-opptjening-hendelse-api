@@ -1,7 +1,5 @@
 package no.nav.pensjon.opptjening.hendelse.kafka
 
-import no.nav.pensjon.opptjening.hendelse.api.PublishFailedException
-import no.nav.pensjon.opptjening.hendelse.api.Type
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.apache.kafka.common.TopicPartition
@@ -52,7 +50,7 @@ class KafkaPublisherTest {
             )
         }
 
-        val actual = publisher.publish(listOf(Type.ENDRET_BEHOLDNING to "baluba"))
+        val actual = publisher.publish(listOf(EndringsType.ENDRET_BEHOLDNING to "baluba"))
         val expected = listOf(12345L)
 
         assertThat(actual).isEqualTo(expected)
@@ -64,8 +62,8 @@ class KafkaPublisherTest {
             CompletableFuture.failedFuture<Any>(RuntimeException())
         }
 
-        assertThrows<PublishFailedException> {
-            publisher.publish(listOf(Type.ENDRET_BEHOLDNING to "baluba"))
+        assertThrows<Exception> {
+            publisher.publish(listOf(EndringsType.ENDRET_BEHOLDNING to "baluba"))
         }
     }
 }
