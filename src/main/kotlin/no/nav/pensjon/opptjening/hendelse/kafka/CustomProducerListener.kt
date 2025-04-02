@@ -40,8 +40,8 @@ class CustomProducerListener : ProducerListener<String, String> {
                     "Partition: ${producerRecord?.partition() ?: "unknown"}, " +
                     "Offset: ${recordMetadata?.offset() ?: "unknown"}, " +
                     "Timestamp: ${LocalDateTime.now()}, " +
-                    "Key: ${producerRecord?.key() ?: "unknown/null"}" +
-                    "Payload: ${producerRecord?.value() ?: "unknown"}" +
+                    "Key: ${producerRecord?.key() ?: "unknown/null"}, " +
+                    "Payload: ${producerRecord?.value() ?: "unknown"}, " +
                     "Exception: ${exception?.message ?: "unknown"}"
         )
     }

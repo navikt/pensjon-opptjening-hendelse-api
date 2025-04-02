@@ -37,7 +37,7 @@ class HendelseService(
                 PublishEventResult.Ok(offsets)
             }
         } catch (ex: Exception) {
-            log.error("Feil ved transaksjonell publisering av hendelser: $hendelser til kafka: $ex")
+            log.error("Feil ved transaksjonell publisering av hendelser: $hendelser til kafka med exception: $ex")
             PublishEventResult.EventError()
         }
     }
