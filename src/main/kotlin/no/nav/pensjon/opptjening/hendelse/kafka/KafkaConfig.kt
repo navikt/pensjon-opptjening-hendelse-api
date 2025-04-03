@@ -6,7 +6,6 @@ import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.config.SslConfigs
 import org.apache.kafka.common.serialization.StringSerializer
-import org.springframework.beans.factory.DisposableBean
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -25,7 +24,7 @@ class KafkaConfig(
     @Value("\${kafka.credstore.password}") private val credstorePassword: String,
     @Value("\${kafka.truststore.path}") private val truststorePath: String,
     @Value("\${kafka.brokers}") private val aivenBootstrapServers: String,
-) : DisposableBean {
+) {
 
     companion object {
         private val log = PoppLogger(this::class.java)
@@ -69,10 +68,5 @@ class KafkaConfig(
         if (::kafkaTemplateInstance.isInitialized) {
             kafkaTemplateInstance.destroy()
         }
-    }
-
-    override fun destroy() {
-        log.info("Start closing Kafka config")
-        close()
     }
 }
