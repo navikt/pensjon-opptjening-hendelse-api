@@ -73,7 +73,7 @@ class KafkaConfig(
     }
 
     override fun destroy() {
-        log.info("Closing Kafka config")
+        log.info("Start closing Kafka config")
         close()
     }
 }
