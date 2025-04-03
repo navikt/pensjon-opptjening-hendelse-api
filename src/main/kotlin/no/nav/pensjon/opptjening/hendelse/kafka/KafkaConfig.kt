@@ -65,7 +65,7 @@ class KafkaConfig(
 
     @PreDestroy
     fun close() {
-        log.info("Gracefully flushing and closing Kafka producer")
+        log.info("Gracefully closing Kafka producer")
         if (::kafkaTemplateInstance.isInitialized) {
             kafkaTemplateInstance.destroy()
         }
