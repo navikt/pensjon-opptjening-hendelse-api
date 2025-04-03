@@ -31,10 +31,13 @@ class KafkaConfig(
         private val log = PoppLogger(this::class.java)
     }
 
-    private lateinit var kafkaTemplate: KafkaTemplate<String, String>
+    private lateinit var kafkaTemplateInstance: KafkaTemplate<String, String>
 
     @Bean
-    fun kafkaTemplate(): KafkaTemplate<String, String> = KafkaTemplate(producerFactory())
+    fun kafkaTemplate(): KafkaTemplate<String, String> {
+        this.kafkaTemplateInstance = KafkaTemplate(producerFactory())
+        return this.kafkaTemplateInstance
+    }
 
     @Bean
     fun producerFactory(): ProducerFactory<String, String> =
@@ -63,8 +66,10 @@ class KafkaConfig(
     @PreDestroy
     fun close() {
         log.info("Gracefully flushing and closing Kafka producer")
-        kafkaTemplate.flush()
-        kafkaTemplate.destroy()
+        if (::kafkaTemplateInstance.isInitialized) {
+            kafkaTemplateInstance.flush()
+            kafkaTemplateInstance.destroy()
+        }
     }
 
     override fun destroy() {

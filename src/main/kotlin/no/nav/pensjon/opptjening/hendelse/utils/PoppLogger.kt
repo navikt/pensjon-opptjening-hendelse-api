@@ -49,7 +49,7 @@ class PoppLogger(clazz: Class<*>) {
     class MarkerProperties(properties: Map<String, Any?>) : Map<String, Any?> by properties
 }
 
-private val logger: Logger = LoggerFactory.getLogger("secure")
+//private val logger: Logger = LoggerFactory.getLogger("secure")
 
 //object SecureLog : Logger by logger
 
