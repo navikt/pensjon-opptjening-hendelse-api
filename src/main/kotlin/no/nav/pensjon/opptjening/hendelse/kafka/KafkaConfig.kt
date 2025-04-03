@@ -67,7 +67,6 @@ class KafkaConfig(
     fun close() {
         log.info("Gracefully flushing and closing Kafka producer")
         if (::kafkaTemplateInstance.isInitialized) {
-            kafkaTemplateInstance.flush()
             kafkaTemplateInstance.destroy()
         }
     }
