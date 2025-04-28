@@ -25,8 +25,14 @@ class KafkaPublisher(
             hendelser
                 .map { (type, hendelse) ->
                     when (type) {
-                        EndringsType.ENDRET_BEHOLDNING -> template.send(beholdningEndretTopic, hendelse)
-                        EndringsType.ENDRET_OPPTJENING -> template.send(opptjeningEndretTopic, hendelse)
+                        EndringsType.ENDRET_BEHOLDNING -> {
+                            println("publishing to ENDRET_BEHOLDNING topic")
+                            template.send(beholdningEndretTopic, hendelse)
+                        }
+                        EndringsType.ENDRET_OPPTJENING -> {
+                            println("publishing to ENDRET_OPPTJENING topic")
+                            template.send(opptjeningEndretTopic, hendelse)
+                        }
                     }
                 }
                 .map {

@@ -29,6 +29,8 @@ class HendelseService(
                 val typeValue =
                     typeNode.textValue() ?: throw IllegalArgumentException("'type' field is not a text value")
 
+                println("forbereder hendelse for publisering med type: ${typeNode.textValue()}")
+
                 EndringsType.valueOf(typeValue) to h.toString()
             }
 
