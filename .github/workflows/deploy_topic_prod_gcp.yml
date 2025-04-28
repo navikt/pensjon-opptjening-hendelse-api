@@ -20,5 +20,5 @@ jobs:
         env:
           CLUSTER: prod-gcp
           RESOURCE: |
-            nais/topics/beholdning-endret/beholdning-endret-topic.yaml,
-            nais/topics/opptjening-endret/opptjening-endret-topic.yaml
+            nais/topics/beholdning-endret-topic.yaml,
+            nais/topics/opptjening-endret-topic.yaml
