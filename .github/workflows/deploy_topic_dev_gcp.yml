@@ -19,4 +19,12 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: dev-gcp
-          RESOURCE: nais/topics/beholdning-endret-topic-q0.yaml,nais/topics/beholdning-endret-topic-q1.yaml,nais/topics/beholdning-endret-topic-q2.yaml,nais/topics/beholdning-endret-topic-q5.yaml
+          RESOURCE: |
+            nais/topics/beholdning-endret/beholdning-endret-topic-q0.yaml,
+            nais/topics/beholdning-endret/beholdning-endret-topic-q1.yaml,
+            nais/topics/beholdning-endret/beholdning-endret-topic-q2.yaml,
+            nais/topics/beholdning-endret/beholdning-endret-topic-q5.yaml,
+            nais/topics/opptjening-endret/opptjening-endret-topic-q0.yaml,
+            nais/topics/opptjening-endret/opptjening-endret-topic-q1.yaml,
+            nais/topics/opptjening-endret/opptjening-endret-topic-q2.yaml,
+            nais/topics/opptjening-endret/opptjening-endret-topic-q5.yaml
