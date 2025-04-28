@@ -19,6 +19,4 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
-          RESOURCE: |
-            nais/topics/beholdning-endret-topic.yaml,
-            nais/topics/opptjening-endret-topic.yaml
+          RESOURCE: nais/topics/beholdning-endret-topic.yaml,nais/topics/opptjening-endret-topic.yaml
