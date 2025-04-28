@@ -18,6 +18,7 @@ class HendelseService(
     }
 
     fun handle(hendelser: List<JsonNode>): PublishEventResult {
+        println("Starter prosessering av hendelser: ${hendelser.size}")
         if (hendelser.isEmpty()) {
             log.info("Ingen hendelser å processere")
             return PublishEventResult.Ok(emptyList())
