@@ -18,7 +18,6 @@ class HendelseService(
     }
 
     fun handle(hendelser: List<JsonNode>): PublishEventResult {
-        println("Starter prosessering av hendelser: ${hendelser.size}")
         if (hendelser.isEmpty()) {
             log.info("Ingen hendelser å processere")
             return PublishEventResult.Ok(emptyList())
@@ -30,8 +29,6 @@ class HendelseService(
                 val typeValue =
                     typeNode.textValue() ?: throw IllegalArgumentException("'type' field is not a text value")
 
-                println("forbereder hendelse for publisering med type: ${typeNode.textValue()}")
-
                 EndringsType.valueOf(typeValue) to h.toString()
             }
 
@@ -40,8 +37,7 @@ class HendelseService(
                 PublishEventResult.Ok(offsets)
             }
         } catch (ex: Exception) {
-            println("Feil ved transaksjonell publisering av hendelser: ${hendelser.size} til kafka med exception: $ex")
-//            log.error("Feil ved transaksjonell publisering av hendelser: $hendelser til kafka med exception: $ex")
+            log.error("Feil ved transaksjonell publisering av hendelser: $hendelser til kafka med exception: $ex")
             PublishEventResult.EventError()
         }
     }

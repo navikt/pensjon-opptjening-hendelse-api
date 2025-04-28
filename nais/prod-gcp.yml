@@ -45,9 +45,9 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: java
-#    logging:
-#      destinations:
-#        - id: secure_logs
+    logging:
+      destinations:
+        - id: secure_logs
   replicas:
     min: 1
     max: 4
