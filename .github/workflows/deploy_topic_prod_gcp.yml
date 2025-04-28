@@ -8,7 +8,7 @@ jobs:
   deploy_topics:
     permissions:
       contents: "read"
-      id-token: "write"  
+      id-token: "write"
     name: 'Deploy topics'
     runs-on: ubuntu-latest
     steps:
@@ -19,4 +19,6 @@ jobs:
         uses: nais/deploy/actions/deploy@v2
         env:
           CLUSTER: prod-gcp
-          RESOURCE: nais/topics/opptjening-endret-topic.yaml
+          RESOURCE: |
+            nais/topics/beholdning-endret/beholdning-endret-topic.yaml,
+            nais/topics/opptjening-endret/opptjening-endret-topic.yaml
