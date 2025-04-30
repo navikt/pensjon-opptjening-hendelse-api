@@ -29,13 +29,9 @@ class KafkaPublisher(
         return kafkaTemplate.executeInTransaction { template ->
             hendelser
                 .map { (type, hendelse) ->
-                    log.info("DEBUG: Publishing type: $type")
                     when (type) {
                         EndringsType.ENDRET_BEHOLDNING -> template.send(beholdningEndretTopic, hendelse)
-                        EndringsType.ENDRET_OPPTJENING -> {
-                            log.info("DEBUG: Sender ENDRET_OPPTJENING hendelse til opptjeningEndretTopic: $hendelse")
-                            template.send(opptjeningEndretTopic, hendelse)
-                        }
+                        EndringsType.ENDRET_OPPTJENING -> template.send(opptjeningEndretTopic, hendelse)
                     }
                 }
                 .map {
