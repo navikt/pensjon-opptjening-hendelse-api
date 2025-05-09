@@ -23,3 +23,6 @@ spec:
     - team: pensjonopptjening
       application: pensjon-opptjening-kafka-testing-support
       access: read
+    - team: pensjon-q2
+      application: pensjon-pen-q2
+      access: read
