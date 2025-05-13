@@ -45,9 +45,11 @@ spec:
     autoInstrumentation:
       enabled: true
       runtime: java
-#    logging:
-#      destinations:
-#        - id: secure_logs
+    logging:
+      destinations:
+        - id: secure_logs
+        - id: elastic
+        - id: loki
   replicas:
     min: 1
     max: 4
