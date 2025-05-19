@@ -10,6 +10,10 @@ spec:
     application:
       enabled: true
   accessPolicy:
+    outbound:
+      rules:
+        - application: logging
+          namespace: nais-system
     inbound:
       rules:
         - application: pensjon-popp-q0
@@ -18,8 +22,6 @@ spec:
         - application: poppbatch-q
           namespace: pensjon-batch
           cluster: dev-fss
-        - application: logging
-          namespace: nais-system
   kafka:
     pool: nav-dev
   env:
