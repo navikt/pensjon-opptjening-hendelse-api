@@ -6,6 +6,7 @@ val jacksonVersion = "2.18.3"
 val logbackEncoderVersion = "8.0"
 val mockitoKotlinVersion = "5.4.0"
 val navTokenSupportVersion = "4.1.0"
+val hibernateValidatorVersion = "8.0.2.Final"
 
 
 plugins {
@@ -46,6 +47,7 @@ dependencies {
     // OIDC
     implementation("no.nav.security:token-validation-spring:$navTokenSupportVersion")
     implementation("no.nav.security:token-client-spring:$navTokenSupportVersion")
+    implementation("org.hibernate:hibernate-validator:$hibernateValidatorVersion")
 
     // Test - setup
     testImplementation("org.springframework.boot:spring-boot-starter-test")
