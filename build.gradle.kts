@@ -10,7 +10,7 @@ val hibernateValidatorVersion = "8.0.2.Final"
 
 
 plugins {
-    val kotlinVersion = "2.0.10"
+    val kotlinVersion = "2.1.21"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.springframework.boot") version "3.4.5"
