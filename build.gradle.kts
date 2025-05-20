@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springKafkaVersion = "3.3.4"
+val springKafkaVersion = "3.3.6"
 val jacksonVersion = "2.18.3"
 val logbackEncoderVersion = "8.0"
 val mockitoKotlinVersion = "5.4.0"
@@ -13,7 +13,7 @@ plugins {
     val kotlinVersion = "2.0.10"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version "3.4.4"
+    id("org.springframework.boot") version "3.4.5"
     id("com.github.ben-manes.versions") version "0.52.0"
 }
 
