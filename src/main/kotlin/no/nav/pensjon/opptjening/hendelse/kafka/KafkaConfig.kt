@@ -14,7 +14,6 @@ import org.springframework.kafka.annotation.EnableKafka
 import org.springframework.kafka.core.DefaultKafkaProducerFactory
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.kafka.core.ProducerFactory
-import java.util.UUID
 
 @EnableKafka
 @Profile("dev-gcp", "prod-gcp")
@@ -24,6 +23,7 @@ class KafkaConfig(
     @Value("\${kafka.credstore.password}") private val credstorePassword: String,
     @Value("\${kafka.truststore.path}") private val truststorePath: String,
     @Value("\${kafka.brokers}") private val aivenBootstrapServers: String,
+    @Value("\${HOSTNAME:local-instance}") private val instanceHostname: String,
 ) {
 
     companion object {
@@ -43,12 +43,13 @@ class KafkaConfig(
         DefaultKafkaProducerFactory(producerConfig() + securityConfig())
 
     private fun producerConfig() = mapOf(
-        ProducerConfig.CLIENT_ID_CONFIG to "pensjon-opptjening-hendelse-api",
+        ProducerConfig.CLIENT_ID_CONFIG to "pensjon-opptjening-hendelse-api-$instanceHostname",
         ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG to StringSerializer::class.java,
         ProducerConfig.BOOTSTRAP_SERVERS_CONFIG to aivenBootstrapServers,
         ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG to "true",
-        ProducerConfig.TRANSACTIONAL_ID_CONFIG to "pensjon-opptjening-hendelse-api-tx-${UUID.randomUUID()}"
+        ProducerConfig.TRANSACTIONAL_ID_CONFIG to "pensjon-opptjening-hendelse-api-tx",
+        ProducerConfig.LINGER_MS_CONFIG to "20",
     )
 
     private fun securityConfig() = mapOf(
