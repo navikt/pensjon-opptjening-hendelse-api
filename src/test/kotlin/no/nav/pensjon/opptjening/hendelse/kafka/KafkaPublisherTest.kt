@@ -1,5 +1,8 @@
 package no.nav.pensjon.opptjening.hendelse.kafka
 
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import no.nav.pensjon.opptjening.hendelse.api.MottattHendelse
+import no.nav.pensjon.opptjening.hendelse.api.PublisertHendelse
 import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.apache.kafka.common.TopicPartition
@@ -50,8 +53,19 @@ class KafkaPublisherTest {
             )
         }
 
-        val actual = publisher.publish(listOf(EndringsType.ENDRET_BEHOLDNING to "baluba"))
-        val expected = listOf(12345L)
+        val mottatt = MottattHendelse(
+            json = jacksonObjectMapper().readTree(
+                """
+                {
+                    "id":"whatever",
+                    "type":"ENDRET_BEHOLDNING"                 
+                }
+                """.trimIndent()
+            )
+        )
+
+        val actual = publisher.publish(listOf(mottatt))
+        val expected = listOf(PublisertHendelse(mottatt, 12345L))
 
         assertThat(actual).isEqualTo(expected)
     }
@@ -62,8 +76,19 @@ class KafkaPublisherTest {
             CompletableFuture.failedFuture<Any>(RuntimeException())
         }
 
+        val mottatt = MottattHendelse(
+            json = jacksonObjectMapper().readTree(
+                """
+                {
+                    "id":"whatever",
+                    "type":"ENDRET_BEHOLDNING"                 
+                }
+                """.trimIndent()
+            )
+        )
+
         assertThrows<Exception> {
-            publisher.publish(listOf(EndringsType.ENDRET_BEHOLDNING to "baluba"))
+            publisher.publish(listOf(mottatt))
         }
     }
 }

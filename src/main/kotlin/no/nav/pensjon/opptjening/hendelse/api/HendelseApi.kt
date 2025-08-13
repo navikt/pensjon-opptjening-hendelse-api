@@ -20,7 +20,6 @@ class HendelseApi(
         return when (val result = service.handle(hendelser)) {
             is PublishEventResult.Ok -> ResponseEntity.ok().body(result)
             is PublishEventResult.EventError -> ResponseEntity.internalServerError().body(result)
-
         }
     }
 }

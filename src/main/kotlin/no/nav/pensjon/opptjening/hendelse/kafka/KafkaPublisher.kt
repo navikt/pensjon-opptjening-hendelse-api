@@ -1,12 +1,14 @@
 package no.nav.pensjon.opptjening.hendelse.kafka
 
+import no.nav.pensjon.opptjening.hendelse.api.MottattHendelse
+import no.nav.pensjon.opptjening.hendelse.api.PublisertHendelse
 import no.nav.pensjon.opptjening.hendelse.utils.PoppLogger
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
 interface Publisher {
-    fun publish(hendelser: List<Pair<EndringsType, String>>): List<Long>
+    fun publish(hendelser: List<MottattHendelse>): List<PublisertHendelse>
 }
 
 @Component
@@ -25,17 +27,17 @@ class KafkaPublisher(
         kafkaTemplate.setProducerListener(customProducerListener)
     }
 
-    override fun publish(hendelser: List<Pair<EndringsType, String>>): List<Long> {
+    override fun publish(hendelser: List<MottattHendelse>): List<PublisertHendelse> {
         return kafkaTemplate.executeInTransaction { template ->
             hendelser
-                .map { (type, hendelse) ->
-                    when (type) {
-                        EndringsType.ENDRET_BEHOLDNING -> template.send(beholdningEndretTopic, hendelse)
-                        EndringsType.ENDRET_OPPTJENING -> template.send(opptjeningEndretTopic, hendelse)
+                .map {
+                    it to when (it.type) {
+                        EndringsType.ENDRET_BEHOLDNING -> template.send(beholdningEndretTopic, it.jsonString)
+                        EndringsType.ENDRET_OPPTJENING -> template.send(opptjeningEndretTopic, it.jsonString)
                     }
                 }
-                .map {
-                    it.get().recordMetadata.offset()
+                .map { (hendelse, metadata) ->
+                    PublisertHendelse(hendelse, metadata.get().recordMetadata.offset())
                 }
         }
     }

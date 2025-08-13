@@ -35,7 +35,7 @@ internal class HendelseApiTest {
 
     @Test
     fun `svarer 200 ok hvis alt går bra`() {
-        whenever(service.handle(any())).thenAnswer { PublishEventResult.Ok(listOf(1L)) }
+        whenever(service.handle(any())).thenAnswer { PublishEventResult.Ok(listOf("1")) }
         mockMvc.perform(
             post("/api/hendelser")
                 .contentType(APPLICATION_JSON)
@@ -72,7 +72,7 @@ internal class HendelseApiTest {
 
     @Test
     fun `parser en liste med hendelser til en liste med strenger`() {
-        whenever(service.handle(any())).thenAnswer { PublishEventResult.Ok(listOf(1L)) }
+        whenever(service.handle(any())).thenAnswer { PublishEventResult.Ok(listOf("1")) }
         val hendelserJson = """[{"fnr":"12341234123",
                 | "arsak":"INNTEKT",
                 | "hendelsesTid":"2021-01-01T15:16:17+01:00[Europe/Oslo]",
