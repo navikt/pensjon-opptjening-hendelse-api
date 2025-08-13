@@ -37,7 +37,7 @@ class KafkaPublisher(
                     }
                 }
                 .map { (hendelse, metadata) ->
-                    PublisertHendelse(hendelse, metadata.get().recordMetadata.offset())
+                    PublisertHendelse(hendelse, metadata.get().recordMetadata)
                 }
         }
     }

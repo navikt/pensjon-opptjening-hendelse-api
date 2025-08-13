@@ -24,7 +24,7 @@ class HendelseService(
                 .map { MottattHendelse(it) }
                 .let { mottatt ->
                     kafkaPublisher.publish(mottatt).let { publisert ->
-                        log.info("Publisert kafka: ${publisert.map { "id: ${it.hendelse.id}, offset: ${it.offset}" }}")
+                        log.info("Publisert kafka: $publisert")
                         PublishEventResult.Ok(publisert.map { it.hendelse.id })
                     }
                 }

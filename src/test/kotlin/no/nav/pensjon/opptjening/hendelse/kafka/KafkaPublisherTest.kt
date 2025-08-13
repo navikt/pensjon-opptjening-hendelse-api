@@ -41,6 +41,8 @@ class KafkaPublisherTest {
 
     @Test
     fun `svarer med offset dersom alt går bra`() {
+        val recordMetadata = RecordMetadata(TopicPartition(beholdningEndretTopic, 1), 12345L, 0, 0, 0, 0)
+
         whenever(kafkaTemplate.send(any(), any())).thenAnswer { invocation ->
             CompletableFuture.completedFuture(
                 SendResult(
@@ -48,7 +50,7 @@ class KafkaPublisherTest {
                         invocation.arguments[0] as String?,
                         invocation.arguments[1] as String?
                     ),
-                    RecordMetadata(TopicPartition(beholdningEndretTopic, 1), 12345L, 0, 0, 0, 0)
+                    recordMetadata
                 )
             )
         }
@@ -65,7 +67,7 @@ class KafkaPublisherTest {
         )
 
         val actual = publisher.publish(listOf(mottatt))
-        val expected = listOf(PublisertHendelse(mottatt, 12345L))
+        val expected = listOf(PublisertHendelse(mottatt, recordMetadata))
 
         assertThat(actual).isEqualTo(expected)
     }
