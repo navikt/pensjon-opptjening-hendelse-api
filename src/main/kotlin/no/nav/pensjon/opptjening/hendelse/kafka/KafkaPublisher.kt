@@ -15,8 +15,8 @@ interface Publisher {
 class KafkaPublisher(
     private val kafkaTemplate: KafkaTemplate<String, String>,
     customProducerListener: CustomProducerListener,
-    @Value("\${BEHOLDNING_ENDRET_TOPIC}") private val beholdningEndretTopic: String,
-    @Value("\${OPPTJENING_ENDRET_TOPIC}") private val opptjeningEndretTopic: String
+    @param:Value("\${BEHOLDNING_ENDRET_TOPIC}") private val beholdningEndretTopic: String,
+    @param:Value("\${OPPTJENING_ENDRET_TOPIC}") private val opptjeningEndretTopic: String
 ) : Publisher {
 
     companion object {

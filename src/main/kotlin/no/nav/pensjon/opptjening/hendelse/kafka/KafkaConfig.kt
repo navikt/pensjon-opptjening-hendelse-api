@@ -19,11 +19,11 @@ import org.springframework.kafka.core.ProducerFactory
 @Profile("dev-gcp", "prod-gcp")
 @Configuration
 class KafkaConfig(
-    @Value("\${kafka.keystore.path}") private val keystorePath: String,
-    @Value("\${kafka.credstore.password}") private val credstorePassword: String,
-    @Value("\${kafka.truststore.path}") private val truststorePath: String,
-    @Value("\${kafka.brokers}") private val aivenBootstrapServers: String,
-    @Value("\${HOSTNAME:local-instance}") private val instanceHostname: String,
+    @param:Value("\${kafka.keystore.path}") private val keystorePath: String,
+    @param:Value("\${kafka.credstore.password}") private val credstorePassword: String,
+    @param:Value("\${kafka.truststore.path}") private val truststorePath: String,
+    @param:Value("\${kafka.brokers}") private val aivenBootstrapServers: String,
+    @param:Value("\${HOSTNAME:local-instance}") private val instanceHostname: String,
 ) {
 
     companion object {

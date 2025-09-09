@@ -2,19 +2,19 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springKafkaVersion = "3.3.5"
-val jacksonVersion = "2.18.3"
-val logbackEncoderVersion = "8.0"
+val springKafkaVersion = "3.3.9"
+val jacksonVersion = "2.20.0"
+val logbackEncoderVersion = "8.1"
 val mockitoKotlinVersion = "5.4.0"
-val navTokenSupportVersion = "5.0.27"
+val navTokenSupportVersion = "5.0.30"
 val hibernateValidatorVersion = "8.0.2.Final"
 
 
 plugins {
-    val kotlinVersion = "2.1.21"
+    val kotlinVersion = "2.2.10"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version "3.4.5"
+    id("org.springframework.boot") version "3.5.5"
     id("com.github.ben-manes.versions") version "0.52.0"
 }
 
