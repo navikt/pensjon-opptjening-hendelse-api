@@ -40,6 +40,12 @@ jobs:
         run: |
           echo "GIT_REF_TAG=git_${GIT_BRANCH}_${GIT_COMMIT}" >> $GITHUB_ENV
 
+      - name: 'Setup Gradle'
+        uses: gradle/actions/setup-gradle@v5
+
+      - name: 'Generate and submit dependency graph'
+        uses: gradle/actions/dependency-submission@v5
+
       - name: 'Build artifact'
         run: |
           ./gradlew build

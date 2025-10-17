@@ -12,9 +12,10 @@ jobs:
     name: 'Tag and deploy'
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
       id-token: write
+    environment: prod-gcp
     steps:
       - name: 'Checkout repository'
         uses: actions/checkout@v5
