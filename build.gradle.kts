@@ -2,19 +2,19 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springKafkaVersion = "3.3.11"
-val jacksonVersion = "2.20.1"
-val logbackEncoderVersion = "8.1"
-val mockitoKotlinVersion = "6.2.0"
+val springKafkaVersion = "3.3.14"
+val jacksonVersion = "2.21.2"
+val logbackEncoderVersion = "9.0"
+val mockitoKotlinVersion = "6.3.0"
 val navTokenSupportVersion = "5.0.30"
-val hibernateValidatorVersion = "8.0.2.Final"
+val hibernateValidatorVersion = "9.1.0.Final"
 
 
 plugins {
-    val kotlinVersion = "2.3.0"
+    val kotlinVersion = "2.3.20"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version "3.5.9"
+    id("org.springframework.boot") version "3.5.13"
     id("com.github.ben-manes.versions") version "0.53.0"
 }
 
@@ -48,7 +48,7 @@ dependencies {
     // OIDC
     implementation("no.nav.security:token-validation-spring:$navTokenSupportVersion")
     implementation("no.nav.security:token-client-spring:$navTokenSupportVersion")
-    implementation("org.hibernate:hibernate-validator:$hibernateValidatorVersion")
+    implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion")
 
     // Test - setup
     testImplementation("org.springframework.boot:spring-boot-starter-test")
