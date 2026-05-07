@@ -14,7 +14,7 @@ jobs:
       id-token: write
     steps:
       - name: 'Pull repo'
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: 'Setup Java'
         uses: actions/setup-java@v5
@@ -64,5 +64,14 @@ jobs:
         env:
           RESOURCE: nais/dev-gcp-q0.yml,nais/dev-gcp-q1.yml,nais/dev-gcp-q2.yml,nais/dev-gcp-q5.yml
           CLUSTER: dev-gcp
+          IMAGE: ${{ steps.docker-push.outputs.image }}
+          TELEMETRY: ${{ steps.docker-push.outputs.telemetry }}
+
+      - name: 'Deploy to prod-gcp (only if master)'
+        if: ${{github.ref == 'refs/heads/master' }}
+        uses: nais/deploy/actions/deploy@v2
+        env:
+          RESOURCE: nais/prod-gcp.yml
+          CLUSTER: prod-gcp
           IMAGE: ${{ steps.docker-push.outputs.image }}
           TELEMETRY: ${{ steps.docker-push.outputs.telemetry }}
