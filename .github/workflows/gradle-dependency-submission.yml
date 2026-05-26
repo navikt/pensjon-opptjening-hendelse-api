@@ -22,4 +22,6 @@ jobs:
           cache: gradle
 
       - name: 'Generate and submit dependency graph'
-        uses: gradle/actions/dependency-submission@v5
+        uses: gradle/actions/dependency-submission@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6
+        with:
+          dependency-graph-include-configurations: '^runtimeClasspath$'
