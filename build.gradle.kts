@@ -15,10 +15,9 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
     id("org.springframework.boot") version "3.5.13"
-    id("com.github.ben-manes.versions") version "0.53.0"
+    id("com.github.ben-manes.versions") version "0.54.0"
+    id("io.spring.dependency-management") version "1.1.7"
 }
-
-apply(plugin = "io.spring.dependency-management")
 
 group = "no.nav.pensjon.opptjening"
 
