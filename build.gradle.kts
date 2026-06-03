@@ -48,6 +48,7 @@ dependencies {
 
     // OIDC
     implementation("no.nav.security:token-validation-spring:$navTokenSupportVersion")
+    // Jakarta Bean Validation engine (reference implementation of the jakarta.validation API, which only defines annotations like @NotNull and @Valid); token-support relies on a runtime provider present on the classpath to bind and validate its MultiIssuerProperties configuration at application startup
     implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion")
 
     // Test
