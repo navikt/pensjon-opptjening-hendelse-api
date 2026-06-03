@@ -1,6 +1,6 @@
 package no.nav.pensjon.opptjening.hendelse.kafka
 
-import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import tools.jackson.module.kotlin.jacksonObjectMapper
 import no.nav.pensjon.opptjening.hendelse.api.MottattHendelse
 import no.nav.pensjon.opptjening.hendelse.api.PublisertHendelse
 import org.apache.kafka.clients.producer.ProducerRecord
@@ -35,9 +35,21 @@ class KafkaPublisherTest {
     @BeforeEach
     fun beforeEach() {
         whenever(kafkaTemplate.executeInTransaction(any<OperationsCallback<String, String, String>>())).thenAnswer {
+            @Suppress("UNCHECKED_CAST")
             (it.arguments[0] as OperationsCallback<String, String, String>).doInOperations(kafkaTemplate)
         }
     }
+
+    private fun mottattHendelse() = MottattHendelse(
+        json = jacksonObjectMapper().readTree(
+            """
+            {
+                "id":"whatever",
+                "type":"ENDRET_BEHOLDNING"                 
+            }
+            """.trimIndent()
+        )
+    )
 
     @Test
     fun `svarer med offset dersom alt går bra`() {
@@ -55,16 +67,7 @@ class KafkaPublisherTest {
             )
         }
 
-        val mottatt = MottattHendelse(
-            json = jacksonObjectMapper().readTree(
-                """
-                {
-                    "id":"whatever",
-                    "type":"ENDRET_BEHOLDNING"                 
-                }
-                """.trimIndent()
-            )
-        )
+        val mottatt = mottattHendelse()
 
         val actual = publisher.publish(listOf(mottatt))
         val expected = listOf(PublisertHendelse(mottatt, recordMetadata))
@@ -78,16 +81,7 @@ class KafkaPublisherTest {
             CompletableFuture.failedFuture<Any>(RuntimeException())
         }
 
-        val mottatt = MottattHendelse(
-            json = jacksonObjectMapper().readTree(
-                """
-                {
-                    "id":"whatever",
-                    "type":"ENDRET_BEHOLDNING"                 
-                }
-                """.trimIndent()
-            )
-        )
+        val mottatt = mottattHendelse()
 
         assertThrows<Exception> {
             publisher.publish(listOf(mottatt))

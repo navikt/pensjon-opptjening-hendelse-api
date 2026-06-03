@@ -1,6 +1,6 @@
 package no.nav.pensjon.opptjening.hendelse.api
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import no.nav.pensjon.opptjening.hendelse.kafka.EndringsType
 import org.apache.kafka.clients.producer.RecordMetadata
 
@@ -8,8 +8,8 @@ data class MottattHendelse(
     val json: JsonNode,
 ) {
     val jsonString: String = json.toString()
-    val id: String = json.get("id").textValue()
-    val type: EndringsType = EndringsType.valueOf(json.get("type").textValue())
+    val id: String = json.get("id").stringValue()
+    val type: EndringsType = EndringsType.valueOf(json.get("type").stringValue())
 }
 
 data class PublisertHendelse(

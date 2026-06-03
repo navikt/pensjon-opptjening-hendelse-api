@@ -7,6 +7,10 @@ import org.springframework.beans.factory.annotation.Value
 import org.springframework.kafka.core.KafkaTemplate
 import org.springframework.stereotype.Component
 
+/**
+ * Publishes [MottattHendelse] events and returns the resulting [PublisertHendelse]s
+ * containing Kafka record metadata.
+ */
 interface Publisher {
     fun publish(hendelser: List<MottattHendelse>): List<PublisertHendelse>
 }
@@ -27,19 +31,16 @@ class KafkaPublisher(
         kafkaTemplate.setProducerListener(customProducerListener)
     }
 
-    override fun publish(hendelser: List<MottattHendelse>): List<PublisertHendelse> {
-        return kafkaTemplate.executeInTransaction { template ->
+    override fun publish(hendelser: List<MottattHendelse>): List<PublisertHendelse> =
+        kafkaTemplate.executeInTransaction { template ->
             hendelser
-                .map {
-                    it to when (it.type) {
-                        EndringsType.ENDRET_BEHOLDNING -> template.send(beholdningEndretTopic, it.jsonString)
-                        EndringsType.ENDRET_OPPTJENING -> template.send(opptjeningEndretTopic, it.jsonString)
-                    }
-                }
-                .map { (hendelse, metadata) ->
-                    PublisertHendelse(hendelse, metadata.get().recordMetadata)
-                }
-        }
+                .map { hendelse -> hendelse to template.send(hendelse.topic(), hendelse.jsonString) }
+                .map { (hendelse, future) -> PublisertHendelse(hendelse, future.get().recordMetadata) }
+        }.orEmpty()
+
+    private fun MottattHendelse.topic(): String = when (type) {
+        EndringsType.ENDRET_BEHOLDNING -> beholdningEndretTopic
+        EndringsType.ENDRET_OPPTJENING -> opptjeningEndretTopic
     }
 }
 

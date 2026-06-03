@@ -1,6 +1,6 @@
 package no.nav.pensjon.opptjening.hendelse.api
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import no.nav.security.token.support.core.api.Protected
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
