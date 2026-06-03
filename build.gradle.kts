@@ -5,6 +5,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 val logbackEncoderVersion = "9.0"
 val mockitoKotlinVersion = "6.3.0"
 val navTokenSupportVersion = "6.0.8"
+val hibernateValidatorVersion = "9.1.0.Final"
 
 plugins {
     val kotlinVersion = "2.3.21"
@@ -47,8 +48,7 @@ dependencies {
 
     // OIDC
     implementation("no.nav.security:token-validation-spring:$navTokenSupportVersion")
-    // Jakarta Validation provider required by token-support to bind MultiIssuerProperties
-    implementation("org.springframework.boot:spring-boot-starter-validation")
+    implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
