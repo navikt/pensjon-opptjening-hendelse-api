@@ -28,6 +28,11 @@ jobs:
 
       - name: 'Generate and submit dependency graph'
         uses: gradle/actions/dependency-submission@v6
+        with:
+          # setup-gradle already manages the Gradle User Home cache. dependency-submission
+          # enables its own caching by default, so disable it here to avoid duplicate
+          # cache restore/save work and extra runtime overhead.
+          cache-disabled: true
 
       - name: 'Setter dato og commit variabel'
         run: |
