@@ -24,10 +24,15 @@ jobs:
           cache: 'gradle'
 
       - name: 'Setup Gradle'
-        uses: gradle/actions/setup-gradle@v5
+        uses: gradle/actions/setup-gradle@v6
 
       - name: 'Generate and submit dependency graph'
-        uses: gradle/actions/dependency-submission@v5
+        uses: gradle/actions/dependency-submission@v6
+        with:
+          # setup-gradle already manages the Gradle User Home cache. dependency-submission
+          # enables its own caching by default, so disable it here to avoid duplicate
+          # cache restore/save work and extra runtime overhead.
+          cache-disabled: true
 
       - name: 'Setter dato og commit variabel'
         run: |
@@ -39,12 +44,6 @@ jobs:
       - name: 'Configure git reference tag'
         run: |
           echo "GIT_REF_TAG=git_${GIT_BRANCH}_${GIT_COMMIT}" >> $GITHUB_ENV
-
-      - name: 'Setup Gradle'
-        uses: gradle/actions/setup-gradle@v5
-
-      - name: 'Generate and submit dependency graph'
-        uses: gradle/actions/dependency-submission@v5
 
       - name: 'Build artifact'
         run: |
