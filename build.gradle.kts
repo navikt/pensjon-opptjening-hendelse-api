@@ -2,43 +2,45 @@ import com.github.benmanes.gradle.versions.updates.DependencyUpdatesTask
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
-val springKafkaVersion = "3.3.14"
-val jacksonVersion = "2.21.2"
 val logbackEncoderVersion = "9.0"
 val mockitoKotlinVersion = "6.3.0"
-val navTokenSupportVersion = "5.0.30"
+val navTokenSupportVersion = "6.0.8"
 val hibernateValidatorVersion = "9.1.0.Final"
 
-
 plugins {
-    val kotlinVersion = "2.3.20"
+    val kotlinVersion = "2.3.21"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version "3.5.13"
-    id("com.github.ben-manes.versions") version "0.54.0"
+    id("org.springframework.boot") version "4.0.6"
     id("io.spring.dependency-management") version "1.1.7"
+    id("com.github.ben-manes.versions") version "0.54.0"
 }
 
 group = "no.nav.pensjon.opptjening"
 
 java {
     toolchain {
-        languageVersion.set(JavaLanguageVersion.of(21))
+        languageVersion.set(JavaLanguageVersion.of(25))
     }
 }
 
 repositories {
     mavenCentral()
+    maven("https://maven.pkg.github.com/navikt/maven-release") {
+        credentials {
+            username = System.getenv("GITHUB_ACTOR")
+            password = System.getenv("GITHUB_TOKEN")
+        }
+    }
 }
 
 dependencies {
     // Spring
-    implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
-    implementation("org.springframework.kafka:spring-kafka:$springKafkaVersion")
+    implementation("org.springframework.kafka:spring-kafka")
 
     // Kotlin
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:$jacksonVersion")
+    implementation("tools.jackson.module:jackson-module-kotlin")
 
     // Log and metric
     implementation("io.micrometer:micrometer-registry-prometheus")
@@ -46,26 +48,21 @@ dependencies {
 
     // OIDC
     implementation("no.nav.security:token-validation-spring:$navTokenSupportVersion")
-    implementation("no.nav.security:token-client-spring:$navTokenSupportVersion")
+    // Jakarta Bean Validation engine (reference implementation of the jakarta.validation API, which only defines annotations like @NotNull and @Valid); token-support relies on a runtime provider present on the classpath to bind and validate its MultiIssuerProperties configuration at application startup
     implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion")
 
-    // Test - setup
+    // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.springframework.kafka:spring-kafka-test:$springKafkaVersion")
+    testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
+    testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
-
-    // Test - token-validation-spring-test dependencies
     testImplementation("no.nav.security:token-validation-spring-test:$navTokenSupportVersion")
-}
-
-tasks.test {
-    useJUnitPlatform()
 }
 
 tasks.withType<KotlinCompile> {
     compilerOptions {
         freeCompilerArgs.add("-Xjsr305=strict")
-        jvmTarget.set(JvmTarget.JVM_21)
+        jvmTarget = JvmTarget.JVM_25
     }
 }
 

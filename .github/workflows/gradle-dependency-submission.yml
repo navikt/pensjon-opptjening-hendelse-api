@@ -18,10 +18,10 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: 'temurin'
-          java-version: 21
+          java-version: 25
           cache: gradle
 
       - name: 'Generate and submit dependency graph'
-        uses: gradle/actions/dependency-submission@50e97c2cd7a37755bbfafc9c5b7cafaece252f6e # v6
+        uses: gradle/actions/dependency-submission@v6
         with:
           dependency-graph-include-configurations: '^runtimeClasspath$'

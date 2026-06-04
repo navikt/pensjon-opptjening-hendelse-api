@@ -8,15 +8,14 @@ import org.junit.jupiter.api.Test
 import org.mockito.kotlin.any
 import org.mockito.kotlin.whenever
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType.APPLICATION_JSON
+import org.springframework.test.context.bean.override.mockito.MockitoBean
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.post
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -30,44 +29,44 @@ internal class HendelseApiTest {
     @Autowired
     private lateinit var server: MockOAuth2Server
 
-    @Autowired
+    @MockitoBean
     private lateinit var service: HendelseService
 
     @Test
     fun `svarer 200 ok hvis alt går bra`() {
         whenever(service.handle(any())).thenAnswer { PublishEventResult.Ok(listOf("1")) }
-        mockMvc.perform(
-            post("/api/hendelser")
-                .contentType(APPLICATION_JSON)
-                .content("[]")
-                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
-        )
-            .andExpect(status().isOk)
+        mockMvc.post("/api/hendelser") {
+            contentType = APPLICATION_JSON
+            content = "[]"
+            header(HttpHeaders.AUTHORIZATION, token("testaud"))
+        }.andExpect {
+            status { isOk() }
+        }
     }
 
     @Test
     fun `svarer 401 hvis audience er feil`() {
-        mockMvc.perform(
-            post("/api/hendelser")
-                .contentType(APPLICATION_JSON)
-                .content("")
-                .header(HttpHeaders.AUTHORIZATION, token("faultyAudClaim"))
-        )
-            .andExpect(status().isUnauthorized)
+        mockMvc.post("/api/hendelser") {
+            contentType = APPLICATION_JSON
+            content = ""
+            header(HttpHeaders.AUTHORIZATION, token("faultyAudClaim"))
+        }.andExpect {
+            status { isUnauthorized() }
+        }
     }
 
     @Test
     fun `svarer 500 hvis publisering feiler`() {
         val errorMessage = "500 Feil"
         whenever(service.handle(any())).thenAnswer { PublishEventResult.EventError(errorMessage) }
-        mockMvc.perform(
-            post("/api/hendelser")
-                .contentType(APPLICATION_JSON)
-                .content("[]")
-                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
-        )
-            .andExpect(status().isInternalServerError)
-            .andExpect(content().json("""{"message": "$errorMessage"}"""))
+        mockMvc.post("/api/hendelser") {
+            contentType = APPLICATION_JSON
+            content = "[]"
+            header(HttpHeaders.AUTHORIZATION, token("testaud"))
+        }.andExpect {
+            status { isInternalServerError() }
+            content { json("""{"message": "$errorMessage"}""") }
+        }
     }
 
     @Test
@@ -79,13 +78,13 @@ internal class HendelseApiTest {
                 | "fom":"2010-01-01",
                 | "tom":"2020-12-31",
                 | "type":"ENDRET_BEHOLDNING"}]""".trimMargin()
-        mockMvc.perform(
-            post("/api/hendelser")
-                .contentType(APPLICATION_JSON)
-                .content(hendelserJson)
-                .header(HttpHeaders.AUTHORIZATION, token("testaud"))
-        )
-            .andExpect(status().isOk)
+        mockMvc.post("/api/hendelser") {
+            contentType = APPLICATION_JSON
+            content = hendelserJson
+            header(HttpHeaders.AUTHORIZATION, token("testaud"))
+        }.andExpect {
+            status { isOk() }
+        }
     }
 
     private fun token(audience: String): String {

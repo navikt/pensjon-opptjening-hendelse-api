@@ -1,6 +1,6 @@
 package no.nav.pensjon.opptjening.hendelse.api
 
-import com.fasterxml.jackson.databind.JsonNode
+import tools.jackson.databind.JsonNode
 import no.nav.pensjon.opptjening.hendelse.kafka.Publisher
 import no.nav.pensjon.opptjening.hendelse.utils.PoppLogger
 import org.springframework.stereotype.Service

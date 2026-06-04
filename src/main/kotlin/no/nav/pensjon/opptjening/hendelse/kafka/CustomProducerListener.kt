@@ -5,7 +5,6 @@ import org.apache.kafka.clients.producer.ProducerRecord
 import org.apache.kafka.clients.producer.RecordMetadata
 import org.springframework.kafka.support.ProducerListener
 import org.springframework.stereotype.Component
-import java.time.LocalDateTime
 
 @Component
 class CustomProducerListener : ProducerListener<String, String> {
@@ -18,31 +17,29 @@ class CustomProducerListener : ProducerListener<String, String> {
         log.info("Custom producer listener initialized")
     }
 
-    override fun onSuccess(producerRecord: ProducerRecord<String, String>?, recordMetadata: RecordMetadata?) {
+    override fun onSuccess(producerRecord: ProducerRecord<String, String>, recordMetadata: RecordMetadata) {
         log.debug(
             "Kafka message published successfully - " +
-                    "Topic: ${producerRecord?.topic() ?: "unknown"}, " +
-                    "Partition: ${producerRecord?.partition() ?: "unknown"}, " +
-                    "Offset: ${recordMetadata?.offset() ?: "unknown"}, " +
-                    "Timestamp: ${LocalDateTime.now()}, " +
-                    "Key: ${producerRecord?.key() ?: "unknown/null"}"
+                    "Topic: ${producerRecord.topic()}, " +
+                    "Partition: ${producerRecord.partition() ?: "unknown"}, " +
+                    "Offset: ${recordMetadata.offset()}, " +
+                    "Key: ${producerRecord.key() ?: "unknown/null"}"
         )
     }
 
     override fun onError(
-        producerRecord: ProducerRecord<String, String>?,
+        producerRecord: ProducerRecord<String, String>,
         recordMetadata: RecordMetadata?,
-        exception: Exception?
+        exception: Exception
     ) {
         log.error(
             "Kafka message publishing failed - " +
-                    "Topic: ${producerRecord?.topic() ?: "unknown"}, " +
-                    "Partition: ${producerRecord?.partition() ?: "unknown"}, " +
+                    "Topic: ${producerRecord.topic()}, " +
+                    "Partition: ${producerRecord.partition() ?: "unknown"}, " +
                     "Offset: ${recordMetadata?.offset() ?: "unknown"}, " +
-                    "Timestamp: ${LocalDateTime.now()}, " +
-                    "Key: ${producerRecord?.key() ?: "unknown/null"}, " +
-                    "Payload: ${producerRecord?.value() ?: "unknown"}, " +
-                    "Exception: ${exception?.message ?: "unknown"}"
+                    "Key: ${producerRecord.key() ?: "unknown/null"}, " +
+                    "Payload: ${producerRecord.value() ?: "unknown"}",
+            exception
         )
     }
 }

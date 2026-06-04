@@ -1,7 +1,5 @@
 package no.nav.pensjon.opptjening.hendelse.kafka
 
-import jakarta.annotation.PreDestroy
-import no.nav.pensjon.opptjening.hendelse.utils.PoppLogger
 import org.apache.kafka.clients.CommonClientConfigs
 import org.apache.kafka.clients.producer.ProducerConfig
 import org.apache.kafka.common.config.SslConfigs
@@ -26,17 +24,9 @@ class KafkaConfig(
     @param:Value("\${HOSTNAME:local-instance}") private val instanceHostname: String,
 ) {
 
-    companion object {
-        private val log = PoppLogger(this::class.java)
-    }
-
-    private lateinit var kafkaTemplateInstance: KafkaTemplate<String, String>
-
     @Bean
-    fun kafkaTemplate(): KafkaTemplate<String, String> {
-        this.kafkaTemplateInstance = KafkaTemplate(producerFactory())
-        return this.kafkaTemplateInstance
-    }
+    fun kafkaTemplate(): KafkaTemplate<String, String> =
+        KafkaTemplate(producerFactory())
 
     @Bean
     fun producerFactory(): ProducerFactory<String, String> =
@@ -62,12 +52,4 @@ class KafkaConfig(
         SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG to truststorePath,
         CommonClientConfigs.SECURITY_PROTOCOL_CONFIG to "SSL"
     )
-
-    @PreDestroy
-    fun close() {
-        log.info("Gracefully closing Kafka producer")
-        if (::kafkaTemplateInstance.isInitialized) {
-            kafkaTemplateInstance.destroy()
-        }
-    }
 }
