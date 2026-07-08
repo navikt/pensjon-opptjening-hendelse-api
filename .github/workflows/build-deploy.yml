@@ -1,11 +1,12 @@
-name: Bygg og deploy til test
+name: Bygg og deploy
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - master
 jobs:
-  tag_build_and_deploy:
+  build_and_push:
     name: 'Build, deploy and tag'
     runs-on: ubuntu-latest
     permissions:
@@ -13,7 +14,7 @@ jobs:
       packages: write
       id-token: write
     steps:
-      - name: 'Pull repo'
+      - name: 'Checkout'
         uses: actions/checkout@v6
 
       - name: 'Setup Java'
@@ -23,29 +24,17 @@ jobs:
           java-version: 25
           cache: 'gradle'
 
-      - name: 'Setup Gradle'
-        uses: gradle/actions/setup-gradle@v6
+      - name: 'Setter git-referansetag'
+        run: |
+          echo "GIT_REF_TAG=git_${{github.ref_name}}_$(echo ${{github.sha}} | cut -c 1-7)" >> $GITHUB_ENV
 
       - name: 'Generate and submit dependency graph'
         uses: gradle/actions/dependency-submission@v6
         with:
           dependency-graph-include-configurations: '^runtimeClasspath$'
-          cache-disabled: true
 
-      - name: 'Setter dato og commit variabel'
-        run: |
-          export TZ=CET
-          echo "DATE=$(date '+%Y-%m-%d--%H-%M-%S')" >> $GITHUB_ENV
-          echo "GIT_COMMIT=$(echo ${{github.sha}} | cut -c 1-7)" >> $GITHUB_ENV
-          echo "GIT_BRANCH=$(echo ${{github.ref_name}})" >> $GITHUB_ENV
-
-      - name: 'Configure git reference tag'
-        run: |
-          echo "GIT_REF_TAG=git_${GIT_BRANCH}_${GIT_COMMIT}" >> $GITHUB_ENV
-
-      - name: 'Build artifact'
-        run: |
-          ./gradlew build
+      - name: 'Build code'
+        run: ./gradlew build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -54,9 +43,9 @@ jobs:
         id: docker-push
         with:
           team: pensjonopptjening
-          tag: ${{ env.GIT_REF_TAG }}
+          tag: ${{env.GIT_REF_TAG}}
 
-      - name: 'Deploy'
+      - name: 'Deploy til dev-gcp'
         uses: nais/deploy/actions/deploy@v2
         env:
           RESOURCE: nais/dev-gcp-q0.yml,nais/dev-gcp-q1.yml,nais/dev-gcp-q2.yml,nais/dev-gcp-q5.yml
@@ -64,7 +53,7 @@ jobs:
           IMAGE: ${{ steps.docker-push.outputs.image }}
           TELEMETRY: ${{ steps.docker-push.outputs.telemetry }}
 
-      - name: 'Deploy to prod-gcp (only if master)'
+      - name: 'Deploy to prod-gcp'
         if: ${{github.ref == 'refs/heads/master' }}
         uses: nais/deploy/actions/deploy@v2
         env:
