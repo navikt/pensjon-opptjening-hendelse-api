@@ -5,6 +5,9 @@ on:
   push:
     branches:
       - master
+  schedule:
+    - cron: '0 3 * * *' #to get patches for docker-image without having to commit to main
+
 jobs:
   build_and_push:
     name: 'Build, deploy and tag'
