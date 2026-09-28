@@ -3,17 +3,17 @@ import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 val logbackEncoderVersion = "9.0"
-val mockitoKotlinVersion = "6.3.0"
-val navTokenSupportVersion = "6.0.8"
-val hibernateValidatorVersion = "9.1.0.Final"
+val mockitoKotlinVersion = "6.4.0"
+val navTokenSupportVersion = "6.0.12"
+val hibernateValidatorVersion = "9.1.4.Final"
 
 plugins {
-    val kotlinVersion = "2.3.21"
+    val kotlinVersion = "2.4.20"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
     id("org.jetbrains.kotlin.plugin.spring") version kotlinVersion
-    id("org.springframework.boot") version "4.1.0"
+    id("org.springframework.boot") version "4.1.1"
     id("io.spring.dependency-management") version "1.1.7"
-    id("com.github.ben-manes.versions") version "0.54.0"
+    id("com.github.ben-manes.versions") version "0.64.0"
 }
 
 group = "no.nav.pensjon.opptjening"
