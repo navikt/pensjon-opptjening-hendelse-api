@@ -23,3 +23,6 @@ spec:
     - team: pensjonopptjening
       application: pensjon-opptjening-kafka-testing-support
       access: read
+    - team: pensjonopptjening
+      application: pensjon-opptjening-afp-api
+      access: read

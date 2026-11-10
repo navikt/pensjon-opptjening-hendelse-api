@@ -26,3 +26,6 @@ spec:
     - team: pensjon-q2
       application: pensjon-pen-q2
       access: read
+    - team: pensjonopptjening
+      application: pensjon-opptjening-afp-api
+      access: read

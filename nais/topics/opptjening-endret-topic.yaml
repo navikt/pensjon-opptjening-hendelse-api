@@ -23,3 +23,6 @@ spec:
     - team: pensjondeployer
       application: pensjon-pen
       access: read
+    - team: pensjonopptjening
+      application: pensjon-opptjening-afp-api
+      access: read
