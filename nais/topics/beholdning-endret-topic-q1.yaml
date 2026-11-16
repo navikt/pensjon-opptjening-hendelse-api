@@ -20,3 +20,6 @@ spec:
     - team: pensjonopptjening
       application: pensjon-opptjening-hendelse-api-q1
       access: write
+    - team: pensjon-q1
+      application: pensjon-pen-q1
+      access: read
