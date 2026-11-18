@@ -7,6 +7,9 @@ val mockitoKotlinVersion = "6.4.0"
 val navTokenSupportVersion = "7.0.1"
 val hibernateValidatorVersion = "9.1.6.Final"
 
+val snappyJavaVersion = "1.1.10.12"
+val lz4Version = "1.11.4"
+
 plugins {
     val kotlinVersion = "2.4.20"
     id("org.jetbrains.kotlin.jvm") version kotlinVersion
@@ -52,12 +55,17 @@ dependencies {
     // Jakarta Bean Validation engine (reference implementation of the jakarta.validation API, which only defines annotations like @NotNull and @Valid); token-support relies on a runtime provider present on the classpath to bind and validate its MultiIssuerProperties configuration at application startup
     implementation("org.hibernate.validator:hibernate-validator:$hibernateValidatorVersion")
 
+    // Overstyres pga sikkerhetspatcher
+    implementation("org.xerial.snappy:snappy-java:$snappyJavaVersion")
+    implementation("at.yawk.lz4:lz4-java:$lz4Version")
+
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.boot:spring-boot-starter-webmvc-test")
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.mockito.kotlin:mockito-kotlin:$mockitoKotlinVersion")
     testImplementation("no.nav.security:token-validation-spring-test:$navTokenSupportVersion")
+
 }
 
 tasks.withType<KotlinCompile> {
